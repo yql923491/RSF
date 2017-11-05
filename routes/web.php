@@ -20,5 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test',function(){
-return "看什么看？没看过人家创业么？！";
+return "看什么看？没看过人家创业么？！这是测试内容！！";
 });
