@@ -22,3 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test',function(){
 return "看什么看？没看过人家创业么？！这是测试内容！！";
 });
+
+
+Route::get('/testview',function(){
+	return view('testview');
+});
