@@ -51,7 +51,7 @@
       allowFileManager : true,
       bodyClass : 'article-content'
     });
-
+    
     $('#uploaderExample').uploader({
       autoUpload: true,            // 当选择文件后立即自动进行上传操作
       url: 'your/file/upload/url'  // 文件上传提交地址
