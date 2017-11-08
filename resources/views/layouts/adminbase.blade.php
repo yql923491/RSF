@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Amaze UI Admin index Examples</title>
+        <title>RunningSaltedFish</title>
         <meta name="description" content="这是一个 index 页面">
         <meta name="keywords" content="index">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,7 +44,7 @@
                     </li>
                     <li class="am-dropdown" data-am-dropdown>
                         <a  class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                            <img class="admin-user-ico" src="{{asset('AmazeUI/img/user.png')}}" alt=""> 禁言小张
+                            <img class="admin-user-ico" src="{{asset('AmazeUI/img/user.png')}}" alt=""> {{ Auth::user()->name }}
                             <span class="am-icon-caret-down"></span>
                         </a>
                         <ul class="am-dropdown-content">
@@ -53,7 +53,12 @@
                             <li class="am-active"><a href="#">个人中心</a></li>
                         </ul>
                     </li>
-                    <li><a href="javascript:;"><span class="am-icon-close"></span> 退出</a></li>
+                    <li>
+                        <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="am-icon-close"></span> 退出</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
                 </ul>
             </div>
         </header>
@@ -64,7 +69,7 @@
                     <ul class="am-list admin-sidebar-list">
                         <li class="am-list-title">日常使用</li>
                         <li class="am-panel">
-                            <a href="admin-index.html"><i class="am-list-ico am-icon-home am-margin-left-sm"></i> 首页</a>
+                            <a href="{{route('home')}}"><i class="am-list-ico am-icon-home am-margin-left-sm"></i> 首页</a>
                         </li>
                         
                         <li class="am-panel">
@@ -96,7 +101,6 @@
                 </div>
             </div>
             <!-- sidebar end -->
-
             @yield('content')
         </div>
         <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
