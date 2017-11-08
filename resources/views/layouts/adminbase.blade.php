@@ -29,8 +29,8 @@
             <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse-2'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
             <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse-2">
                 <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-                    <li><a href="javascript:;"><span class="am-mark"><span class="am-icon-bell"></span> 信息<sup>99+</sup></span></a></li>
-                    <li class="am-dropdown" data-am-dropdown>
+                    <!-- <li><a href="javascript:;"><span class="am-mark"><span class="am-icon-bell"></span> 信息<sup>99+</sup></span></a></li> -->
+                    <!-- <li class="am-dropdown" data-am-dropdown>
                         <a  class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
                             <span class="am-mark"><span class="am-icon-calendar-check-o"></span> 进度<sup>12</sup></span>
                             <span class="am-icon-caret-down"></span>
@@ -41,7 +41,7 @@
                             <li class="am-active"><a href="#">Amaze UI Touch</a></li>
                             <li><a href="#">Amaze UI React</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="am-dropdown" data-am-dropdown>
                         <a  class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
                             <img class="admin-user-ico" src="{{asset('AmazeUI/img/user.png')}}" alt=""> {{ Auth::user()->name }}
@@ -67,35 +67,40 @@
             <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
                 <div class="am-offcanvas-bar admin-offcanvas-bar">
                     <ul class="am-list admin-sidebar-list">
-                        <li class="am-list-title">日常使用</li>
+                        <li class="am-list-title">用户管理</li>
                         <li class="am-panel">
-                            <a href="{{route('home')}}"><i class="am-list-ico am-icon-home am-margin-left-sm"></i> 首页</a>
+                            <a href="{{route('home')}}"><i class="am-list-ico am-icon-home am-margin-left-sm"></i> 个人信息管理</a>
                         </li>
                         
                         <li class="am-panel">
                             <a data-am-collapse="{parent: '#collapase-nav-1', target: '#user-nav'}">
-                                <i class="am-list-ico am-icon-file am-margin-left-sm"></i> 页面 <i class="am-icon-angle-right am-fr am-margin-right"></i>
+                                <i class="am-list-ico am-icon-file am-margin-left-sm"></i> 用户管理 <i class="am-icon-angle-right am-fr am-margin-right"></i>
                             </a>
                             <ul class="am-list am-collapse admin-sidebar-sub" id="user-nav">
-                                <li><a href="admin-form.html"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 表单 </a></li>
-                                <li><a href="admin-table.html"><i class="am-list-ico am-icon-table am-margin-left-sm"></i> 表格 </a></li>
+                                <li><a href="admin-form.html"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 登陆客户管理 </a></li>
+                                <li><a href="admin-form.html"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 角色管理 </a></li>
+                                <li><a href="admin-table.html"><i class="am-list-ico am-icon-table am-margin-left-sm"></i> 权限分配 </a></li>
                             </ul>
                         </li>
-                        <li class="am-list-title">其他分类</li>
+                        <li class="am-list-title">内容管理</li>
                         <li class="am-panel">
                             <a href="admin-gallery.html">
-                                <i class="am-list-ico am-icon-th am-margin-left-sm"></i> 相册 </i>
+                                <i class="am-list-ico am-icon-th am-margin-left-sm"></i> 银行管理 </i>
                             </a>
                         </li>
                         <li class="am-panel">
                             <a href="admin-404.html">
-                                <i class="am-list-ico am-icon-bug am-margin-left-sm"></i> 404页面 </i>
+                                <i class="am-list-ico am-icon-bug am-margin-left-sm"></i> 卡管理 </i>
                             </a>
                         </li>
                         <li class="am-panel">
-                            <a href="login.html">
-                                <i class="am-list-ico am-icon-key am-margin-left-sm"></i> 登陆</i>
+                            <a data-am-collapse="{parent: '#collapase-nav-1', target: '#discountinfo-nav'}">
+                                <i class="am-list-ico am-icon-file am-margin-left-sm"></i> 优惠信息管理 <i class="am-icon-angle-right am-fr am-margin-right"></i>
                             </a>
+                            <ul class="am-list am-collapse admin-sidebar-sub" id="discountinfo-nav">
+                                <li><a href="admin-form.html"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 信息分类 </a></li>
+                                <li><a href="admin-table.html"><i class="am-list-ico am-icon-table am-margin-left-sm"></i> 信息内容 </a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
