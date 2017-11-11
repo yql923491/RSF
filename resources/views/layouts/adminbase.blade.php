@@ -20,6 +20,7 @@
         <script src="{{ asset('js/lib/jquery/dist/jquery.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/app.js')}}"></script>
+        <script src="{{asset('/layer/layer.js')}}"></script>
     </head>
     <body>
         <header class="am-topbar am-topbar-inverse">
@@ -79,7 +80,7 @@
                             <ul class="am-list am-collapse admin-sidebar-sub" id="user-nav">
                                 <li><a href="admin-form.html"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 登陆客户管理 </a></li>
                                 <li><a href="admin-form.html"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 角色管理 </a></li>
-                                <li><a href="admin-table.html"><i class="am-list-ico am-icon-table am-margin-left-sm"></i> 权限分配 </a></li>
+                                <li><a href="/admin/permission"><i class="am-list-ico am-icon-table am-margin-left-sm"></i> 权限分配 </a></li>
                             </ul>
                         </li>
                         <li class="am-list-title">内容管理</li>
