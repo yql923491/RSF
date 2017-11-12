@@ -35,4 +35,4 @@ Route::get('/admin/add_permission',function(){
 	return view('/admin/AddPermission');
 });
 
-Route::post('/admin/add_permission_fun','AdminController@AddPermissionFun');
+Route::get('/admin/add_permission_fun','AdminController@AddPermissionFun');

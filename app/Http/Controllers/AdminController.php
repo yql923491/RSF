@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -30,7 +31,8 @@ class AdminController extends Controller
 
     public function AddPermissionFun(Request $request){
         $input=$request;
-        dd($input);
+        $users = DB::select('select * from users', [1]);
+        return response()->json($users);
     }
 
 }
