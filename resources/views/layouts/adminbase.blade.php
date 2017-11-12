@@ -20,7 +20,7 @@
         <script src="{{ asset('js/lib/jquery/dist/jquery.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/app.js')}}"></script>
-        <script src="{{asset('/layer/layer.js')}}"></script>
+        <script src="{{ asset('/layer/layer.js')}}"></script>
     </head>
     <body>
         <header class="am-topbar am-topbar-inverse">
