@@ -67,11 +67,8 @@
 		</div>
 		<!-- content end -->
 	</div>
-	<script type="text/javascript" charset="utf-8" async defer>
-		
+	<script type="text/javascript" charset="utf-8" async defer>	
 		$('form').submit(function(){
-
-			// console.log($(this).serializeArray());
 			$.ajax({ 
 				url: $(this).attr('action'), 
 				type:'get',
