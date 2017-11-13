@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use App\Flight;
+use App\User;
 class AdminController extends Controller
 {
     //
@@ -31,7 +32,15 @@ class AdminController extends Controller
 
     public function AddPermissionFun(Request $request){
         $input=$request;
-        $users = DB::select('select * from users', [1]);
+        // $users = DB::select('select * from users where status = ?', [1]);
+        // DB::insert('insert into users (name,email,password,status,created_at,updated_at) values (?,?,?,?)', ['wjwczyb','wjwczyb@163.com',md5('wjw2324884'),1]);
+        // $affected = DB::update('update users set status = 1 where name = ?', ['wjwczyb']);
+        // DB::statement('drop table users');
+
+
+        // $flights = Flight::all();
+        $users = User::all();
+
         return response()->json($users);
     }
 
