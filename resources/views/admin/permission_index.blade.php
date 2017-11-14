@@ -3,6 +3,7 @@
   <!-- content start -->
   <div class="admin-content">
     <div class="admin-content-body">
+      <form class="am-form" action='{{route("permission_indexss")}}'>
       <div class="am-cf am-padding">
       </div>
       <div class="am-g">
@@ -25,16 +26,16 @@
         </div>
         <div class="am-u-sm-12 am-u-md-3">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field">
+            <input type="text" class="am-form-field" name="search" value="{{$search}}">
             <span class="am-input-group-btn">
-              <button class="am-btn am-btn-primary" type="button">搜索</button>
+              <button class="am-btn am-btn-primary" type="submit" >搜索</button>
             </span>
           </div>
         </div>
       </div>
       <div class="am-g">
         <div class="am-u-sm-12">
-          <form class="am-form">
+          
             <table class="am-table am-table-striped am-table-hover table-main">
               <thead>
                 <tr>
@@ -47,13 +48,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                @foreach ($permissions as $permission)
+                 <tr>
                   <td><input type="checkbox" /></td>
-                  <td>1</td>
-                  <td><a href="#">DeleteUsers</a></td>
-                  <td>删除用户</td>
-                  <td class="am-hide-sm-only">操作类</td>
-                  <td class="am-hide-sm-only">2017-02-08 19:43</td>
+                  <td>{{ $permission->id }}</td>
+                  <td>{{$permission->permission_name}}</td>
+                  <td>{{$permission->permission_describe}}</td>
+                  <td class="am-hide-sm-only">{{$permission->permission_type}}</td>
+                  <td class="am-hide-sm-only">{{$permission->created_at}}</td>
                   <td>
                     <div class="am-btn-group am-btn-group-xs">
                       <button type="button" class="am-btn am-btn-primary am-radius"><span class="am-icon-pencil-square-o"></span> 编辑</button>
@@ -62,24 +64,9 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td><input type="checkbox" /></td>
-                  <td>2</td>
-                  <td><a href="#">CardManage</a></td>
-                  <td>卡管理</td>
-                  <td class="am-hide-sm-only">菜单类</td>
-                  <td class="am-hide-sm-only">2017-02-08 19:43</td>
-                  <td>
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button type="button" class="am-btn am-btn-primary am-radius"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button type="button" class="am-btn am-btn-warning am-radius"><span class="am-icon-copy"></span> 停用</button>
-                      <button type="button" class="am-btn am-btn-danger am-radius"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </td>
-                </tr>
-     
- 
-   
+                @endforeach
+  
+               
               
               
 
@@ -89,7 +76,8 @@
             </table>
             <div class="am-cf">
               <div class="am-fr">
-                <ul class="am-pagination">
+                 {!! $permissions->appends('search',$search)->links() !!}
+                <!-- <ul class="am-pagination">
                   <li class="am-disabled"><a href="#">«</a></li>
                   <li class="am-active"><a href="#">1</a></li>
                   <li><a href="#">2</a></li>
@@ -97,7 +85,7 @@
                   <li><a href="#">4</a></li>
                   <li><a href="#">5</a></li>
                   <li><a href="#">»</a></li>
-                </ul>
+                </ul> -->
               </div>
             </div>
             <hr />

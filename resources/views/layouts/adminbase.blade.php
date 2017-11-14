@@ -17,6 +17,7 @@
         
         <link href="{{ asset('AmazeUI/css/amazeui.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('AmazeUI/css/admin.css')}}">
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <script src="{{ asset('js/lib/jquery/dist/jquery.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/app.js')}}"></script>
