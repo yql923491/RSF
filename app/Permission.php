@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     //
-    protected $table = 'Permission';
+    protected $table = 'permission';
 }

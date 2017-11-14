@@ -26,9 +26,9 @@
         </div>
         <div class="am-u-sm-12 am-u-md-3">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field" name="search">
+            <input type="text" class="am-form-field" name="search" value="{{$search}}">
             <span class="am-input-group-btn">
-              <button class="am-btn am-btn-primary" type="submit">搜索</button>
+              <button class="am-btn am-btn-primary" type="submit" >搜索</button>
             </span>
           </div>
         </div>
