@@ -26,9 +26,12 @@ class AdminController extends Controller
         return view('admin/home');
     }
 
-    public function permission_index()
+    public function permission_index(Request $request)
     {
-        return view('admin/permission_index');
+        // dd($request['search']);
+        $permission=new permission;
+        $res=$permission::where('permission_name','like','%'.$request['search'].'%')->paginate(3);
+        return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search']);
     }
 
     public function AddPermissionFun(Request $request){
