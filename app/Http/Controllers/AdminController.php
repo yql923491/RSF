@@ -28,7 +28,6 @@ class AdminController extends Controller
 
     public function permission_index(Request $request)
     {
-        // dd($request['search']);
         $permission=new permission;
         $res=$permission::where('permission_name','like','%'.$request['search'].'%')->paginate(3);
         return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search']);

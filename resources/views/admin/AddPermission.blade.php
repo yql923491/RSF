@@ -17,7 +17,7 @@
 					<div class="am-cf am-padding"></div>
 					<div class="am-g">
 						<div class="am-u-sm-12">
-							<form class="am-form am-form-horizontal" action="/admin/add_permission_fun" method="post">
+							<form class="am-form am-form-horizontal" action="/admin/add_permission_fun" method="get">
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">权限名称</label>
 									<div class="am-u-sm-12 am-u-md-10">
@@ -68,17 +68,17 @@
 		<!-- content end -->
 	</div>
 	<script type="text/javascript" charset="utf-8" async defer>	
-		$('form').submit(function(){
-			$.ajax({ 
-				url: $(this).attr('action'), 
-				type:'get',
-				data:$(this).serializeArray(),
-				success: function(){
-					alert('提交成功');
-				}
-			});
-			return false;
-		})
+		// $('form').submit(function(){
+		// 	$.ajax({ 
+		// 		url: $(this).attr('action'), 
+		// 		type:'get',
+		// 		data:$(this).serializeArray(),
+		// 		success: function(){
+		// 			alert('提交成功');
+		// 		}
+		// 	});
+		// 	return false;
+		// })
 	</script>
 </body>
 </html>

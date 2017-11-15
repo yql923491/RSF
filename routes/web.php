@@ -15,9 +15,7 @@
 //     return view('welcome');
 // });
 
-Route::get('/',function(){
-	 return view('admin/home');
-});
+Route::get('/','AdminController@index');
 
 
 Auth::routes();
