@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>增加权限</title>
+		<title>增加角色</title>
 		<link href="{{ asset('AmazeUI/css/amazeui.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{asset('AmazeUI/css/admin.css')}}">
 		<script src="{{ asset('js/lib/jquery/dist/jquery.js') }}"></script>
@@ -17,25 +17,25 @@
 					<div class="am-cf am-padding"></div>
 					<div class="am-g">
 						<div class="am-u-sm-12">
-							<form class="am-form am-form-horizontal" action="/admin/add_permission_fun" method="get">
+							<form class="am-form am-form-horizontal" action="/admin/add_role_func" method="get">
 								<div class="am-form-group">
-									<label class="am-u-sm-12 am-u-md-2 am-form-label">权限名称</label>
+									<label class="am-u-sm-12 am-u-md-2 am-form-label">角色名称</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"   name='permission_name' placeholder="请输入英文的权限名称">
+										<input type="text" class="am-input-sm"   name='role_name' placeholder="请输入英文的角色名称">
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label class="am-u-sm-12 am-u-md-2 am-form-label">权限描述</label>
+									<label class="am-u-sm-12 am-u-md-2 am-form-label">角色描述</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"  name='permission_describe'  placeholder="请输入权限的中文描述">
+										<input type="text" class="am-input-sm"  name='role_describe'  placeholder="请输入角色的中文描述">
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label class="am-u-sm-12 am-u-md-2 am-form-label">权限分类</label>
+									<label class="am-u-sm-12 am-u-md-2 am-form-label">角色分类</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										
-										<select name="permission_type" data-am-selected>
-											<option value="meun">菜单类</option>
+										<select name="role_type" data-am-selected>
+											<option value="menu">菜单类</option>
 											<option value="operation" selected>操作类</option>
 										</select>
 										
@@ -45,7 +45,7 @@
 									<label for="user-weibo" class="am-u-sm-12 am-u-md-2 am-form-label">状态</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										<label class="am-switch">
-											<input type="checkbox" name="permission_status" value="1">
+											<input type="checkbox" name="role_status" value="1">
 											<span class="am-switch-checkbox"></span>
 										</label>
 									</div>
