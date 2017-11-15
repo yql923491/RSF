@@ -30,8 +30,12 @@ Route::get('/testview',function(){
 
 Route::get('/admin/index','AdminController@index');
 Route::get('/admin/permission','AdminController@permission_index')->name('permission_indexss');
+Route::get('/admin/role','AdminController@role_index')->name('role_indexss');
 Route::get('/admin/add_permission',function(){
 	return view('/admin/AddPermission');
 });
-
+Route::get('/admin/add_role',function(){
+	return view("/admin/addRole");
+});
 Route::get('/admin/add_permission_fun','AdminController@AddPermissionFun');
+Route::get('/admin/add_role_func',"AdminController@addRoleFunc");
