@@ -35,6 +35,9 @@ class AdminController extends Controller
     }
 
     public function role_index(Request $request){      #角
+        // $tmprole=new role;
+        // $tempres=$tmprole::find(1)->permissions()->get();
+        // dd($tempres);
         $role=new role;
         $res=$role::where('role_name','like','%'.$request['search'].'%')->paginate(3);
         return view('admin/role_index')->with('roles',$res)->with('search',$request['search']);
