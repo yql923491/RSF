@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>RunningSaltedFish</title>
+        <!-- <title>RunningSaltedFish</title> -->
+        <title>{{$title}}</title>
         <meta name="description" content="这是一个 index 页面">
         <meta name="keywords" content="index">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -66,8 +67,8 @@
         </header>
         <div class="am-cf admin-main">
             <!-- sidebar start -->
-            <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-                <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <div class="admin-sidebar am-offcanvas" id="admin-offcanvas"  style="overflow-y:hidden">
+                <div class="am-offcanvas-bar admin-offcanvas-bar" style="overflow-y:hidden">
                     <ul class="am-list admin-sidebar-list">
                         <li class="am-list-title">用户管理</li>
                         <li class="am-panel">
