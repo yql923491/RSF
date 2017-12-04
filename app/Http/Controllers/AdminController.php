@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin/home');
+        return view('admin/home')->with('title','RunningSaltedFish后台管理');
     }
 
     public function permission_index(Request $request)   #权限
