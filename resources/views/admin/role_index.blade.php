@@ -51,7 +51,7 @@
                 @foreach ($roles as $role)
                  <tr>
                   <td><input type="checkbox" /></td>
-                  <td>{{ $role->id }}</td>
+                  <td><input class='role_id' type="hidden" value="{{ $role->id }}" name='role_id'>{{ $role->id }}</td>
                   <td>{{$role->role_name}}</td>
                   <td>{{$role->role_describe}}</td>
                   <td class="am-hide-sm-only">{{$role->role_type}}</td>
@@ -60,7 +60,7 @@
                     <div class="am-btn-group am-btn-group-xs">
                       <button type="button" class="am-btn am-btn-primary am-radius"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                       <button type="button" class="am-btn am-btn-warning am-radius"><span class="am-icon-copy"></span> 停用</button>
-                      <button type="button" class="am-btn am-btn-danger am-radius"><span class="am-icon-trash-o"></span> 删除</button>
+                      <button type="button" class="am-btn am-btn-danger am-radius single_delete" onclick='single_delete(this)' ><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </td>
                 </tr>
@@ -116,6 +116,31 @@
           });
   })
  
+
+
+function single_delete(){
+  console.log($(this))
+  layer.confirm('是否确认删除该角色？', {
+      btn: ['是','否'] //按钮
+    }, function(){
+      // 获取到要删除的ID
+      
+      // 向后台提交
+
+      // 删除成功后在前端页面删除
+
+    }, function(){
+       layer.msg('已经取消删除', {icon: 1});
+    });
+}
+
+
+// $('.single_delete').click(function(){
+    
+
+// })
+
+
 
 </script>
 

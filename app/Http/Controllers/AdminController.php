@@ -31,7 +31,7 @@ class AdminController extends Controller
     {
         $permission=new permission;
         $res=$permission::where('permission_name','like','%'.$request['search'].'%')->paginate(3);
-        return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search']);
+        return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search'])->with('title','权限管理');
     }
 
     public function role_index(Request $request){      #角
@@ -40,7 +40,7 @@ class AdminController extends Controller
         // dd($tempres);
         $role=new role;
         $res=$role::where('role_name','like','%'.$request['search'].'%')->paginate(3);
-        return view('admin/role_index')->with('roles',$res)->with('search',$request['search']);
+        return view('admin/role_index')->with('roles',$res)->with('search',$request['search'])->with('title','角色管理');
     }
 
     public function AddPermissionFun(Request $request){
