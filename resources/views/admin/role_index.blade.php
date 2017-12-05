@@ -49,18 +49,19 @@
               </thead>
               <tbody>
                 @foreach ($roles as $role)
-                 <tr>
+                 <tr class='testtr'>
                   <td><input type="checkbox" /></td>
                   <td><input class='role_id' type="hidden" value="{{ $role->id }}" name='role_id'>{{ $role->id }}</td>
                   <td>{{$role->role_name}}</td>
                   <td>{{$role->role_describe}}</td>
                   <td class="am-hide-sm-only">{{$role->role_type}}</td>
                   <td class="am-hide-sm-only">{{$role->created_at}}</td>
-                  <td>
+                  <td class='testtd'>
                     <div class="am-btn-group am-btn-group-xs">
                       <button type="button" class="am-btn am-btn-primary am-radius"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                       <button type="button" class="am-btn am-btn-warning am-radius"><span class="am-icon-copy"></span> 停用</button>
-                      <button type="button" class="am-btn am-btn-danger am-radius single_delete" onclick='single_delete(this)' ><span class="am-icon-trash-o"></span> 删除</button>
+                      <!-- <button type="button" class="am-btn am-btn-danger am-radius single_delete" onclick='single_delete(this)' ><span class="am-icon-trash-o"></span> 删除</button> -->
+                      <button type="button" class="am-btn am-btn-danger am-radius single_delete"  ><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </td>
                 </tr>
@@ -117,28 +118,37 @@
   })
  
 
+$('.single_delete').click(function(){
+  var tr =$(this).parent().parent().parent()
+  var role_id = $(this).parent().parent().parent().find('.role_id').attr('value')
 
-function single_delete(){
-  console.log($(this))
-  layer.confirm('是否确认删除该角色？', {
-      btn: ['是','否'] //按钮
-    }, function(){
+  layer.confirm('是否确认删除该角色？', 
+    {btn: ['是','否']}, 
+    function(){
       // 获取到要删除的ID
-      
       // 向后台提交
-
+    $.ajax({ 
+       url: "delete_role", 
+       type:'get',
+       data: {'role_id':role_id}, 
+       dataType:'json',
+       success: function(data){
+        if(data>0){
+          layer.msg(data+'条删除成功！', {icon: 1});
+          $(tr).remove();
+        }else{
+          layer.msg('数据删除失败', {icon: 2});
+        }
+        
+       }
+     });
       // 删除成功后在前端页面删除
-
-    }, function(){
-       layer.msg('已经取消删除', {icon: 1});
+      
+    }, 
+    function(){
+      layer.msg('已经取消删除', {icon: 7});
     });
-}
-
-
-// $('.single_delete').click(function(){
-    
-
-// })
+})
 
 
 
