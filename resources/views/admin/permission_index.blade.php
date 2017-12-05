@@ -17,10 +17,10 @@
         </div>
         <div class="am-u-sm-12 am-u-md-3">
           <div class="am-form-group">
-            <select data-am-selected="{btnSize: 'sm'}" name="permission_type" >
-              <option value=" " {{$permission_type==' '?'selected':''}}>全部</option>
-              <option value="menu" {{$permission_type=='menu'?'selected':''}}>菜单类</option>
-              <option value="operation" {{$permission_type=='operation'?'selected':''}}>操作类</option>
+            <select data-am-selected="{btnSize: 'sm'}">
+              <option value="option1">全部</option>
+              <option value="option2">菜单类</option>
+              <option value="option3">操作类</option>
             </select>
           </div>
         </div>
@@ -42,7 +42,6 @@
                   <th class="table-check"><input type="checkbox" id='selectall'/></th><th class="table-id">ID</th>
                   <th class="table-title">权限名称</th>
                   <th class="table-type">权限描述</th>
-                  <th class="table-type">是否启用</th>
                   <th class="table-author am-hide-sm-only">权限类别</th>
                   <th class="table-date am-hide-sm-only">创建时间</th>
                   <th class="table-set">功能</th>
@@ -52,24 +51,23 @@
                 @foreach ($permissions as $permission)
                  <tr>
                   <td><input type="checkbox" /></td>
-                  <td><input type='hidden' class="permission_id" value='{{$permission->id}}'> {{ $permission->id }}</td>
+                  <td>{{ $permission->id }}</td>
                   <td>{{$permission->permission_name}}</td>
                   <td>{{$permission->permission_describe}}</td>
-                  <td>{{$permission->permission_status==1?"已启用":"未启用"}}</td>
                   <td class="am-hide-sm-only">{{$permission->permission_type}}</td>
                   <td class="am-hide-sm-only">{{$permission->created_at}}</td>
                   <td>
                     <div class="am-btn-group am-btn-group-xs">
                       <button type="button" class="am-btn am-btn-primary am-radius"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button type="button" class="am-btn {{ $permission->permission_status == 1 ? 'am-btn-warning' : 'am-btn-success' }} am-radius single_enabled"><span class="am-icon-copy"></span> <input type="hidden" name="permission_status" value='{{$permission->permission_status}}' class='permission_status'> {{ $permission->permission_status == 1 ? '停用' : '启用' }} </button>
-                      <button type="button" class="am-btn am-btn-danger am-radius single_delete"><span class="am-icon-trash-o"></span> 删除</button>
+                      <button type="button" class="am-btn am-btn-warning am-radius"><span class="am-icon-copy"></span> 停用</button>
+                      <button type="button" class="am-btn am-btn-danger am-radius"><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </td>
                 </tr>
                 @endforeach
   
                
-              <!-- <tr><hr></tr> -->
+              
               
 
               
@@ -127,57 +125,6 @@
       $('input').prop('checked',false)
     }
   })
-
-
-
- $('.single_delete').click(function(){
-  var tr =$(this).parent().parent().parent()
-  var permission_id = $(this).parent().parent().parent().find('.permission_id').attr('value')
-  
-  layer.confirm('是否确认删除该角色？', 
-    {btn: ['是','否']}, 
-    function(){
-      // 获取到要删除的ID
-      // 向后台提交
-    $.ajax({ 
-       url: "delete_permission", 
-       type:'get',
-       data: {'permission_id':permission_id}, 
-       dataType:'json',
-       success: function(data){
-        if(data>0){
-          layer.msg(data+'条删除成功！', {icon: 1});
-          $(tr).remove();
-        }else{
-          layer.msg('数据删除失败', {icon: 2});
-        }
-        
-       }
-     });
-      // 删除成功后在前端页面删除
-      
-    }, 
-    function(){
-      layer.msg('已经取消删除', {icon: 7});
-    });
-})
-
-
-$('.single_enabled').click(function(){
-  var permission_id = $(this).parent().parent().parent().find('.permission_id').attr('value')
-  var permission_status = $(this).parent().parent().parent().find('.permission_status').attr('value')
-
-  $.get("enable_permission",{'permission_id':permission_id,'permission_status':permission_status},
-  function(data){
-    if(data){
-      window.location.reload();
-    }
-  },
-  "json");//这里返回的类型有：json,html,xml,text
-
-
-})
-
 
 </script>
 
