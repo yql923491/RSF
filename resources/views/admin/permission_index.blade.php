@@ -39,7 +39,7 @@
             <table class="am-table am-table-striped am-table-hover table-main">
               <thead>
                 <tr>
-                  <th class="table-check"><input type="checkbox" /></th><th class="table-id">ID</th>
+                  <th class="table-check"><input type="checkbox" id='selectall'/></th><th class="table-id">ID</th>
                   <th class="table-title">权限名称</th>
                   <th class="table-type">权限描述</th>
                   <th class="table-author am-hide-sm-only">权限类别</th>
@@ -103,6 +103,7 @@
 </div>
 <script type="text/javascript" charset="utf-8" async defer>
 
+// 新增权限弹出按钮
   $('#add_permission').click(function(){
 
           layer.open({
@@ -115,7 +116,15 @@
             content: '/admin/add_permission'
           });
   })
- 
+
+ // 全选按钮
+  $('#selectall').click(function(){
+    if($(this).prop('checked')){
+     $('input').prop('checked',true)
+    }else{
+      $('input').prop('checked',false)
+    }
+  })
 
 </script>
 

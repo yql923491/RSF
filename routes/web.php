@@ -37,5 +37,7 @@ Route::get('/admin/add_permission',function(){
 Route::get('/admin/add_role',function(){
 	return view("/admin/addRole");
 });
+
 Route::get('/admin/add_permission_fun','AdminController@AddPermissionFun');
 Route::get('/admin/add_role_func',"AdminController@addRoleFunc");
+Route::get('/admin/delete_role',"AdminController@delete_role");

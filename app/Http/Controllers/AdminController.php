@@ -24,20 +24,23 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin/home');
+        return view('admin/home')->with('title','RunningSaltedFish后台管理');
     }
 
     public function permission_index(Request $request)   #权限
     {
         $permission=new permission;
         $res=$permission::where('permission_name','like','%'.$request['search'].'%')->paginate(3);
-        return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search']);
+        return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search'])->with('title','权限管理');
     }
 
     public function role_index(Request $request){      #角
+        // $tmprole=new role;
+        // $tempres=$tmprole::find(1)->permissions()->get();
+        // dd($tempres);
         $role=new role;
         $res=$role::where('role_name','like','%'.$request['search'].'%')->paginate(3);
-        return view('admin/role_index')->with('roles',$res)->with('search',$request['search']);
+        return view('admin/role_index')->with('roles',$res)->with('search',$request['search'])->with('title','角色管理');
     }
 
     public function AddPermissionFun(Request $request){
@@ -71,5 +74,12 @@ class AdminController extends Controller
         $res=$role->save();
         
     }
+
+    public function delete_role(Request $request){
+        $role = new role();
+        $res=$role::destroy($request['role_id']); //返回删除的条数
+        return $res;
+    }
+
 
 }

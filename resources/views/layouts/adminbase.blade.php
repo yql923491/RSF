@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>RunningSaltedFish</title>
+        <!-- <title>RunningSaltedFish</title> -->
+        <title>{{$title}}</title>
         <meta name="description" content="这是一个 index 页面">
         <meta name="keywords" content="index">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -66,8 +67,8 @@
         </header>
         <div class="am-cf admin-main">
             <!-- sidebar start -->
-            <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-                <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <div class="admin-sidebar am-offcanvas" id="admin-offcanvas"  style="overflow-y:hidden">
+                <div class="am-offcanvas-bar admin-offcanvas-bar" style="overflow-y:hidden">
                     <ul class="am-list admin-sidebar-list">
                         <li class="am-list-title">用户管理</li>
                         <li class="am-panel">
@@ -76,12 +77,12 @@
                         
                         <li class="am-panel">
                             <a data-am-collapse="{parent: '#collapase-nav-1', target: '#user-nav'}">
-                                <i class="am-list-ico am-icon-file am-margin-left-sm"></i> 用户管理 <i class="am-icon-angle-right am-fr am-margin-right"></i>
+                                <i class="am-list-ico am-icon-user-md am-margin-left-sm"></i>用户管理 <i class="am-icon-angle-right am-fr am-margin-right"></i>
                             </a>
                             <ul class="am-list am-collapse admin-sidebar-sub" id="user-nav">
-                                <li><a href="admin-form.html"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 登陆客户管理 </a></li>
-                                <li><a href="/admin/role"><i class="am-list-ico am-icon-check am-margin-left-sm"></i> 角色管理 </a></li>
-                                <li><a href="/admin/permission"><i class="am-list-ico am-icon-table am-margin-left-sm"></i> 权限分配 </a></li>
+                                <li><a href="admin-form.html"><i class="am-list-ico am-icon-users am-margin-left-sm"></i>用户管理 </a></li>
+                                <li><a href="/admin/role"><i class="am-list-ico am-icon-user-secret am-margin-left-sm" aria-hidden="false"></i>角色管理 </a></li>
+                                <li><a href="/admin/permission"><i class="am-list-ico am-icon-hand-pointer-o am-margin-left-sm"></i>权限管理</a></li>
                             </ul>
                         </li>
                         <li class="am-list-title">内容管理</li>
