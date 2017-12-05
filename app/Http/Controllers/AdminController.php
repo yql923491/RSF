@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin/home');
+        return view('admin/home')->with('title','RunningSaltedFish后台管理');
     }
 
     public function permission_index(Request $request)   #权限
@@ -74,5 +74,12 @@ class AdminController extends Controller
         $res=$role->save();
         
     }
+
+    public function delete_role(Request $request){
+        $role = new role();
+        $res=$role::destroy($request['role_id']); //返回删除的条数
+        return $res;
+    }
+
 
 }
