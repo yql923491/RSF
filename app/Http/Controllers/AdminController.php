@@ -26,26 +26,21 @@ class AdminController extends Controller
     {
         return view('admin/home')->with('title','RunningSaltedFish后台管理');
     }
-
+    // 权限管理页面
     public function permission_index(Request $request)   #权限
     {
         $permission=new permission;
-        $res=$permission::where('permission_name','like','%'.$request['search'].'%')->paginate(3);
-        return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search'])->with('title','权限管理');
+        $res=$permission::where('permission_name','like','%'.$request['search'].'%')->where('permission_type','like','%'.$request['permission_type'].'%')->paginate(3);
+        return view('admin/permission_index')->with('permissions',$res)->with('search',$request['search'])->with('title','权限管理')->with('permission_type',$request['permission_type']);
     }
-
-    public function role_index(Request $request){      #角
-        // $tmprole=new role;
-        // $tempres=$tmprole::find(1)->permissions()->get();
-        // dd($tempres);
+    // 角色管理页面
+    public function role_index(Request $request){      #角色
         $role=new role;
         $res=$role::where('role_name','like','%'.$request['search'].'%')->paginate(3);
         return view('admin/role_index')->with('roles',$res)->with('search',$request['search'])->with('title','角色管理');
     }
-
+    // 新增权限方法
     public function AddPermissionFun(Request $request){
-        
-        
         $permission= new permission;
         $permission->permission_name=$request['permission_name'];
         $permission->permission_describe=$request['permission_describe'];
@@ -53,18 +48,9 @@ class AdminController extends Controller
         $permission->permission_status=$request['permission_status']==1?1:0;
         $res=$permission->save();
         dd($res);
-
-        // $users = DB::select('select * from users where status = ?', [1]);
-        // DB::insert('insert into users (name,email,password,status,created_at,updated_at) values (?,?,?,?)', ['wjwczyb','wjwczyb@163.com',md5('wjw2324884'),1]);
-        // $affected = DB::update('update users set status = 1 where name = ?', ['wjwczyb']);
-        // DB::statement('drop table users');
-
-
-        // $flights = Flight::all();
-        // $users = User::all();
-
-        // return response()->json($users);
     }
+
+    // 新增角色方法
     public function addRoleFunc(Request $request){
         $role=new role;
         $role->role_name=$request['role_name'];
@@ -74,12 +60,34 @@ class AdminController extends Controller
         $res=$role->save();
         
     }
-
+    // 删除角色方法
     public function delete_role(Request $request){
         $role = new role();
         $res=$role::destroy($request['role_id']); //返回删除的条数
         return $res;
     }
 
+
+    // 删除权限方法
+    public function delete_permission(Request $request){
+        $permission = new permission();
+        $res=$permission::destroy($request['permission_id']); //返回删除的条数
+        return $res;
+    }
+
+    // 启用禁用权限方法
+    public function enable_permission(Request $request){
+        $permission =new permission();
+        $res_permission=$permission::find($request['permission_id']);
+        $res=false;
+        if($request['permission_status']==1){
+           $res_permission->permission_status=0;
+           $res=$res_permission->save();
+        }else{
+           $res_permission->permission_status=1;
+           $res=$res_permission->save();
+        }
+        return json_encode($res) ;
+    }
 
 }
