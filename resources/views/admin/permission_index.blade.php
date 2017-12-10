@@ -115,7 +115,7 @@ $('.single_delete').click(function() {
     var tr = $(this).parent().parent().parent(); //獲取整行數據,以備後續js返回成功后刪除
     var permission_id = $(this).parent().parent().parent().find('.permission_id').attr('value') //獲取要刪除的permission_id
         // layer 彈框控件
-    layer.confirm('是否确认删除该角色？', {
+    layer.confirm('是否确认删除该权限？', {
             btn: ['是', '否']
         },
         function() {
