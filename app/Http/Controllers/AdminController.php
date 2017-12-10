@@ -42,12 +42,23 @@ class AdminController extends Controller
     // 新增权限方法
     public function AddPermissionFun(Request $request){
         $permission= new permission;
-        $permission->permission_name=$request['permission_name'];
-        $permission->permission_describe=$request['permission_describe'];
-        $permission->permission_type=$request['permission_type']=='operation'?'operation':'meun';
-        $permission->permission_status=$request['permission_status']==1?1:0;
-        $res=$permission->save();
-        dd($res);
+        if(!empty($request['permission_id'])){
+            $res_permission=$permission::find($request['permission_id']);
+            $res_permission->permission_name=$request['permission_name'];
+            $res_permission->permission_describe=$request['permission_describe'];
+            $res_permission->permission_type=$request['permission_type']=='operation'?'operation':'menu';
+            $res_permission->permission_status=$request['permission_status']==1?1:0;
+            $res=$res_permission->save();
+
+        }else{
+            $permission->permission_name=$request['permission_name'];
+            $permission->permission_describe=$request['permission_describe'];
+            $permission->permission_type=$request['permission_type']=='operation'?'operation':'menu';
+            $permission->permission_status=$request['permission_status']==1?1:0;
+            $res=$permission->save();
+        };
+        
+        
     }
 
     // 新增角色方法
@@ -88,6 +99,18 @@ class AdminController extends Controller
            $res=$res_permission->save();
         }
         return json_encode($res) ;
+    }
+
+    // 增加或修改权限
+    public function add_permission(Request $request){
+        $permission= new permission;
+        if($request['permission_id'] !=null ){
+            
+            $res_permission=$permission::find($request['permission_id']);
+        }else{
+            $res_permission=$permission;
+        }
+        return view('/admin/AddPermission')->with('permission',$res_permission);
     }
 
 }
