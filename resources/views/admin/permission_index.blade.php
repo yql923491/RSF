@@ -55,7 +55,7 @@
                 <td><input type="hidden" class="permission_id" value='{{$permission->id }}'  > {{ $permission->id }}</td>
                 <td>{{$permission->permission_name}}</td>
                 <td>{{$permission->permission_describe}}</td>
-                <td > <input type="hidden" class='permission_status' value='{{ $permission->permission_status }}'>{{$permission->permission_status==1?'已经启用':'已禁用'}}</td>
+                <td > <input type="hidden" class='permission_status' value='{{ $permission->permission_status }}'><span>{{$permission->permission_status==1?'已启用':'已禁用'}}</span></td>
                 <td class="am-hide-sm-only">{{$permission->permission_type}}</td>
                 <td class="am-hide-sm-only">{{$permission->created_at}}</td>
                 <td>
@@ -149,15 +149,22 @@ $('.single_delete').click(function() {
 
 // 单个启用禁用权限
 $('.single_enabled').click(function() {
-    var permission_id = $(this).parent().parent().parent().find('.permission_id').attr('value')  //获取permission_id
-    var permission_status = $(this).parent().parent().parent().find('.permission_status').attr('value') //获取当前页面上的permission_status
+    var thisbutton = $(this);
+    var permission_id = $(thisbutton).parent().parent().parent().find('.permission_id').attr('value')  //获取permission_id
+    var this_ob=        $(thisbutton).parent().parent().parent().find('.permission_status');
+    var permission_status = $(this_ob).attr('value') //获取当前页面上的permission_status
+    
     $.get("enable_permission", {
             'permission_id': permission_id,
             'permission_status': permission_status
         },
         function(data) {
-            if (data) {
-                window.location.reload();
+            if(permission_status==1){
+              $(thisbutton).removeClass('am-btn-warning').addClass('am-btn-success').html("<span class='am-icon-copy'></span> 启用");
+              $(this_ob).attr('value',0).parent().attr('value',0).find('span').text('已禁用')
+            }else{
+              $(thisbutton).removeClass('am-btn-success').addClass('am-btn-warning').html("<span class='am-icon-copy'></span> 禁用");
+              $(this_ob).attr('value',1).parent().attr('value',1).find('span').text('已启用')      
             }
         },
         "json"); //这里返回的类型有：json,html,xml,text
