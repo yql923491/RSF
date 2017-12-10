@@ -209,8 +209,7 @@ $('.batch_delete').click(function(){
 // 权限编辑功能
 $('.single_edit').click(function() {
     var permission_id = $(this).parent().parent().parent().find('.permission_id').attr('value') //獲取要刪除的permission_id
-    // alert(permission_id)
-        // layer 彈框控件
+    // layer 彈框控件
     layer.open({
             type: 2,
             title: '修改权限',
