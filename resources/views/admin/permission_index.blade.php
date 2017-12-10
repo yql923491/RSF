@@ -11,7 +11,7 @@
           <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
               <button id='add_permission' type="button" class="am-btn am-btn-default am-btn-primary"><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default am-btn-primary "><span class="am-icon-trash-o"></span> 删除</button>
+              <button type="button" class="am-btn am-btn-default am-btn-primary batch_delete"><span class="am-icon-trash-o"></span> 删除</button>
             </div>
           </div>
         </div>
@@ -51,8 +51,8 @@
             <tbody>
               @foreach ($permissions as $permission)
               <tr>
-                <td><input type="checkbox" /></td>
-                <td><input type="hidden" value='{{$permission->id }}' class="permission_id"> {{ $permission->id }}</td>
+                <td><input type="checkbox" class="selected_permission_id" value="{{$permission->id }}" /></td>
+                <td><input type="hidden" value='{{$permission->id }}'  > {{ $permission->id }}</td>
                 <td>{{$permission->permission_name}}</td>
                 <td>{{$permission->permission_describe}}</td>
                 <td > <input type="hidden" class='permission_status' value='{{ $permission->permission_status }}'>{{$permission->permission_status==1?'已经启用':'已禁用'}}</td>
@@ -160,6 +160,50 @@ $('.single_enabled').click(function() {
         "json"); //这里返回的类型有：json,html,xml,text
 })
 
+// 批量删除功能
+$('.batch_delete').click(function(){
+    // 获取全部选中的checkbox
+    var checkboxs=$('.selected_permission_id:checked');
+    var permission_ids=[];
+    // var tr = $(this).parent().parent().parent();
+    var tr=$(checkboxs).parent().parent();
+    $.each(checkboxs,function(){
+      permission_ids.push(this.value);
+    })
+    layer.confirm('是否确认删除选中的'+permission_ids.length+'权限？', {
+            btn: ['是', '否']
+        },
+        function() {
+            $.ajax({
+                url: "delete_permission",
+                type: 'get',
+                data: {
+                    'permission_id': permission_ids
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data > 0) {
+                        layer.msg(data + '条删除成功！', {
+                            icon: 1
+                        });
+                        $(tr).remove();
+                    } else {
+                        layer.msg('数据删除失败', {
+                            icon: 2
+                        });
+                    }
+                }
+            });
+        },
+        function() {
+            layer.msg('已经取消删除', {
+                icon: 7
+            });
+        }
+    );
+
+
+})
 
 
 </script>

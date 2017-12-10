@@ -35,7 +35,7 @@
 									<div class="am-u-sm-12 am-u-md-10">
 										
 										<select name="permission_type" data-am-selected>
-											<option value="meun">菜单类</option>
+											<option value="menu">菜单类</option>
 											<option value="operation" selected>操作类</option>
 										</select>
 										
