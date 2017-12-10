@@ -52,7 +52,7 @@
               @foreach ($permissions as $permission)
               <tr>
                 <td><input type="checkbox" class="selected_permission_id" value="{{$permission->id }}" /></td>
-                <td><input type="hidden" value='{{$permission->id }}'  > {{ $permission->id }}</td>
+                <td><input type="hidden" class="permission_id" value='{{$permission->id }}'  > {{ $permission->id }}</td>
                 <td>{{$permission->permission_name}}</td>
                 <td>{{$permission->permission_describe}}</td>
                 <td > <input type="hidden" class='permission_status' value='{{ $permission->permission_status }}'>{{$permission->permission_status==1?'已经启用':'已禁用'}}</td>
@@ -60,7 +60,7 @@
                 <td class="am-hide-sm-only">{{$permission->created_at}}</td>
                 <td>
                   <div class="am-btn-group am-btn-group-xs">
-                    <button type="button" class="am-btn am-btn-primary am-radius"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                    <button type="button" class="am-btn am-btn-primary am-radius single_edit"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                     <button type="button" class="am-btn {{$permission->permission_status==1?'am-btn-warning':'am-btn-success'}}  am-radius single_enabled"><span class="am-icon-copy"></span> {{$permission->permission_status==1?'禁用':'启用'}}</button>
                     <button type="button" class="am-btn am-btn-danger am-radius single_delete"><span class="am-icon-trash-o"></span> 删除</button>
                   </div>
@@ -92,7 +92,10 @@ $('#add_permission').click(function() {
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '600px'],
-            content: '/admin/add_permission'
+            content: '/admin/add_permission',
+            success:function(layero, index){
+              console.log(layero, index);
+            }
         });
     })
 
@@ -165,7 +168,6 @@ $('.batch_delete').click(function(){
     // 获取全部选中的checkbox
     var checkboxs=$('.selected_permission_id:checked');
     var permission_ids=[];
-    // var tr = $(this).parent().parent().parent();
     var tr=$(checkboxs).parent().parent();
     $.each(checkboxs,function(){
       permission_ids.push(this.value);
@@ -201,9 +203,25 @@ $('.batch_delete').click(function(){
             });
         }
     );
-
-
 })
+
+
+// 权限编辑功能
+$('.single_edit').click(function() {
+    var permission_id = $(this).parent().parent().parent().find('.permission_id').attr('value') //獲取要刪除的permission_id
+    // alert(permission_id)
+        // layer 彈框控件
+    layer.open({
+            type: 2,
+            title: '修改权限',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['893px', '600px'],
+            content: '/admin/add_permission?permission_id='+permission_id
+        });
+});
+
 
 
 </script>
