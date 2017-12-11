@@ -23,6 +23,7 @@
         <script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/app.js')}}"></script>
         <script src="{{ asset('/layer/layer.js')}}"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7tPpGQeMkYjyaOjiXCT5Yc0ygrL5Zkxp"></script>
     </head>
     <body>
         <header class="am-topbar am-topbar-inverse">
