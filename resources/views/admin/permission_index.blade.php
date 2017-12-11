@@ -112,6 +112,7 @@ $('#selectall').click(function() {
 
 // 單個刪除功能
 $('.single_delete').click(function() {
+    
     var tr = $(this).parent().parent().parent(); //獲取整行數據,以備後續js返回成功后刪除
     var permission_id = $(this).parent().parent().parent().find('.permission_id').attr('value') //獲取要刪除的permission_id
         // layer 彈框控件
@@ -119,6 +120,9 @@ $('.single_delete').click(function() {
             btn: ['是', '否']
         },
         function() {
+            var index = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
             $.ajax({
                 url: "delete_permission",
                 type: 'get',
@@ -139,16 +143,21 @@ $('.single_delete').click(function() {
                     }
                 }
             });
+            layer.close(index);
         },
         function() {
             layer.msg('已经取消删除', {
                 icon: 7
             });
+            layer.close(index);
         });
 })
 
 // 单个启用禁用权限
 $('.single_enabled').click(function() {
+    var index = layer.load(1, {
+        shade: [0.1,'#fff'] //0.1透明度的白色背景
+    });
     var thisbutton = $(this);
     var permission_id = $(thisbutton).parent().parent().parent().find('.permission_id').attr('value')  //获取permission_id
     var this_ob=        $(thisbutton).parent().parent().parent().find('.permission_status');
@@ -159,13 +168,16 @@ $('.single_enabled').click(function() {
             'permission_status': permission_status
         },
         function(data) {
-            if(permission_status==1){
-              $(thisbutton).removeClass('am-btn-warning').addClass('am-btn-success').html("<span class='am-icon-copy'></span> 启用");
-              $(this_ob).attr('value',0).parent().attr('value',0).find('span').text('已禁用')
-            }else{
-              $(thisbutton).removeClass('am-btn-success').addClass('am-btn-warning').html("<span class='am-icon-copy'></span> 禁用");
-              $(this_ob).attr('value',1).parent().attr('value',1).find('span').text('已启用')      
-            }
+            if(data){
+               if(permission_status==1){
+                  $(thisbutton).removeClass('am-btn-warning').addClass('am-btn-success').html("<span class='am-icon-copy'></span> 启用");
+                  $(this_ob).attr('value',0).parent().attr('value',0).find('span').text('已禁用')
+                }else{
+                  $(thisbutton).removeClass('am-btn-success').addClass('am-btn-warning').html("<span class='am-icon-copy'></span> 禁用");
+                  $(this_ob).attr('value',1).parent().attr('value',1).find('span').text('已启用')      
+                }
+            }            
+            layer.close(index);
         },
         "json"); //这里返回的类型有：json,html,xml,text
 })
@@ -183,6 +195,9 @@ $('.batch_delete').click(function(){
             btn: ['是', '否']
         },
         function() {
+            var index = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });          
             $.ajax({
                 url: "delete_permission",
                 type: 'get',
@@ -201,6 +216,7 @@ $('.batch_delete').click(function(){
                             icon: 2
                         });
                     }
+                    layer.close(index);
                 }
             });
         },
@@ -208,6 +224,7 @@ $('.batch_delete').click(function(){
             layer.msg('已经取消删除', {
                 icon: 7
             });
+            layer.close(index);
         }
     );
 })
