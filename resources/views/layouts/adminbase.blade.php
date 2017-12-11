@@ -87,7 +87,7 @@
                         </li>
                         <li class="am-list-title">内容管理</li>
                         <li class="am-panel">
-                            <a href="admin-gallery.html">
+                            <a href="/bank/bank_info_manage">
                                 <i class="am-list-ico am-icon-th am-margin-left-sm"></i> 银行管理 </i>
                             </a>
                         </li>

@@ -17,6 +17,7 @@ class CreateBankInfoTable extends Migration
             $table->increments('id');
             $table->string('bank_name');
             $table->string('subbranch_name');
+            $table->integer('bank_level');
             $table->string('city_id');
             $table->timestamps();
         });

@@ -47,3 +47,4 @@ Route::get('/admin/delete_role',"AdminController@delete_role");
 // 删除权限路由，这里应该用 ResF 风格API？？？
 Route::get('/admin/delete_permission',"AdminController@delete_permission");
 Route::get('/admin/enable_permission',"AdminController@enable_permission");
+Route::get('/bank/bank_info_manage',"BankManageController@bank_info_manage");
