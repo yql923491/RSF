@@ -112,4 +112,5 @@ class AdminController extends Controller
         return view('/admin/AddPermission')->with('permission',$res_permission);
     }
 
+
 }
