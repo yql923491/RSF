@@ -98,7 +98,6 @@ class AdminController extends Controller
            $res=$res_permission->save();
         }
         return json_encode($res) ;
-        
     }
 
 
