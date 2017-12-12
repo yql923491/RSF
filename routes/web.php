@@ -31,9 +31,11 @@ Route::get('/testview',function(){
 Route::get('/admin/index','AdminController@index');
 Route::get('/admin/permission','AdminController@permission_index')->name('permission_indexss');
 Route::get('/admin/role','AdminController@role_index')->name('role_indexss');
-Route::get('/admin/add_permission',function(){
-	return view('/admin/AddPermission');
-});
+// Route::get('/admin/add_permission',function(){
+// 	return view('/admin/AddPermission');
+// });
+
+Route::get('/admin/add_permission','AdminController@add_permission');
 Route::get('/admin/add_role',function(){
 	return view("/admin/addRole");
 });
@@ -46,3 +48,4 @@ Route::get('/admin/enable_role',"AdminController@enable_role");
 // 删除权限路由，这里应该用 ResF 风格API？？？
 Route::get('/admin/delete_permission',"AdminController@delete_permission");
 Route::get('/admin/enable_permission',"AdminController@enable_permission");
+Route::get('/bank/bank_info_manage',"BankManageController@bank_info_manage");

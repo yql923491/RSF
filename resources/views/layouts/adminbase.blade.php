@@ -23,6 +23,7 @@
         <script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
         <script src="{{ asset('AmazeUI/js/app.js')}}"></script>
         <script src="{{ asset('/layer/layer.js')}}"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7tPpGQeMkYjyaOjiXCT5Yc0ygrL5Zkxp"></script>
     </head>
     <body>
         <header class="am-topbar am-topbar-inverse">
@@ -87,7 +88,7 @@
                         </li>
                         <li class="am-list-title">内容管理</li>
                         <li class="am-panel">
-                            <a href="admin-gallery.html">
+                            <a href="/bank/bank_info_manage">
                                 <i class="am-list-ico am-icon-th am-margin-left-sm"></i> 银行管理 </i>
                             </a>
                         </li>
