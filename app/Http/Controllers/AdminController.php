@@ -112,7 +112,8 @@ class AdminController extends Controller
             $res=$role->save();
         }
         return json_encode($res);
-
+    }
+    
     // 增加或修改权限
     public function add_permission(Request $request){
         $permission= new permission;
