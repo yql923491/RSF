@@ -43,6 +43,7 @@
                   <th class="table-title">角色名称</th>
                   <th class="table-type">角色描述</th>
                   <th class="table-author am-hide-sm-only">角色类别</th>
+                  <th>角色启用状态</th>
                   <th class="table-date am-hide-sm-only">创建时间</th>
                   <th class="table-set">功能</th>
                 </tr>
@@ -55,12 +56,12 @@
                   <td>{{$role->role_name}}</td>
                   <td>{{$role->role_describe}}</td>
                   <td class="am-hide-sm-only">{{$role->role_type}}</td>
+                  <td><input type="hidden" class='role_status' value='{{ $role->role_status }}'>{{$role->role_status==1?'已启用':'已禁用'}}</td>
                   <td class="am-hide-sm-only">{{$role->created_at}}</td>
                   <td>
                     <div class="am-btn-group am-btn-group-xs">
                       <button type="button" class="am-btn am-btn-primary am-radius"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button type="button" class="am-btn am-btn-warning am-radius"><span class="am-icon-copy"></span> 停用</button>
-                      <button type="button" class="am-btn am-btn-danger am-radius single_delete" onclick='single_delete(this)' ><span class="am-icon-trash-o"></span> 删除</button>
+
                     </div>
                   </td>
                 </tr>
@@ -112,8 +113,22 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '600px'],
-            content: '/admin/add_role'
+            content: 'add_role'
           });
+  })
+  $('.single_enabled').click(function(){
+    var role_id=$(this).parent().parent().parent().find('.role_id').attr('value')
+    var role_status=$(this).parent().parent().parent().find('.role_status').attr('value')
+    $.ajax({
+      url:'enable_role',
+      type:'get',
+      data:{'role_id':role_id,'role_status':role_status},
+      dataType:'json',
+      success:function(data){
+        window.location.reload();
+      }
+    })
+
   })
  
 
