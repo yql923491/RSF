@@ -74,7 +74,10 @@
 				type:'get',
 				data:$(this).serializeArray(),
 				success: function(){
+					window.parent.location.reload();
 					alert('提交成功');
+					window.location.close();
+					
 				}
 			});
 			return false;
