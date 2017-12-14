@@ -82,8 +82,7 @@ class AdminController extends Controller
     }
     // 删除角色方法
     public function delete_role(Request $request){
-        $role = new role();
-        $res=$role::destroy($request['role_id']); //返回删除的条数
+        $res=Role::destroy($request['role_id']); //返回删除的条数
         return $res;
     }
 

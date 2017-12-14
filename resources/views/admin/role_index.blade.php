@@ -11,7 +11,7 @@
           <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
               <button id='add_role' type="button" class="am-btn am-btn-default am-btn-primary"><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default am-btn-primary"><span class="am-icon-trash-o"></span> 删除</button>
+              <button type="button" class="am-btn am-btn-default am-btn-primary batchDelete" ><span class="am-icon-trash-o"></span> 删除</button>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
             <table class="am-table am-table-striped am-table-hover table-main">
               <thead>
                 <tr>
-                  <th class="table-check"><input type="checkbox" /></th><th class="table-id">ID</th>
+                  <th class="table-check"><input type="checkbox" id="selectAll"/></th><th class="table-id">ID</th>
                   <th class="table-title">角色名称</th>
                   <th class="table-type">角色描述</th>
                   <th class="table-author am-hide-sm-only">角色类别</th>
@@ -51,7 +51,7 @@
               <tbody id="tbody">
                 @foreach ($roles as $role)
                  <tr>
-                  <td><input type="checkbox" /></td>
+                  <td><input type="checkbox" class="singleSelected" value="{{$role->id}}" /></td>
                   <td><input class='role_id' type="hidden" value="{{ $role->id }}" >{{ $role->id }}</td>
                   <td>{{$role->role_name}}</td>
                   <td>{{$role->role_describe}}</td>
@@ -99,7 +99,14 @@
           });
   })
 
-
+// 全选按钮
+$('#selectAll').click(function() {
+        if ($(this).prop('checked')) {
+            $('input').prop('checked', true)
+        } else {
+            $('input').prop('checked', false)
+        }
+    })
 
   $('.single_edit').click(function(){
     var role_id=$(this).parent().parent().parent().find('.role_id').attr('value')
@@ -188,7 +195,47 @@ $('.single_delete').click(function() {
         });
 })
 
+$('.batchDelete').click(function(){
 
+  var allChecked=$('.singleSelected:checked');
+  var role_ids=[];
+  var tr=allChecked.parent().parent();
+  $.each(allChecked,function(){
+      role_ids.push(this.value);
+    })
+  layer.confirm('确定删除选中的'+role_ids.length+'条角色信息？',{
+    btn:['是','否']
+  },
+    function(){
+      var index = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+      });
+      $.ajax({
+        url:"delete_role",
+        type:"get",
+        data:{"role_id":role_ids},
+        dataType:"json",
+        success:function(data){
+          if (data>0) {
+            layer.msg(data+'条记录删除成功！',{icon:1});
+            $(tr).remove();
+            // window.location.reload();
+          }else{
+            layer.msg('数据删除失败！',{icon:2});
+          }
+          layer.close(index);
+        }
+
+      })
+
+    },
+    function(){
+      layer.msg('已经取消删除！',{icon:7});
+      layer.close(index);
+    }
+  )
+
+})
 
 </script>
 
