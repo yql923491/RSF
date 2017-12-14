@@ -36,14 +36,13 @@ Route::get('/admin/role','AdminController@role_index')->name('role_indexss');
 // });
 
 Route::get('/admin/add_permission','AdminController@add_permission');
-Route::get('/admin/add_role',function(){
-	return view("/admin/addRole");
-});
+Route::get('/admin/add_role','AdminController@add_role');
 
 Route::get('/admin/add_permission_fun','AdminController@AddPermissionFun');
 Route::get('/admin/add_role_func',"AdminController@addRoleFunc");
 Route::get('/admin/delete_role',"AdminController@delete_role");
 Route::get('/admin/enable_role',"AdminController@enable_role");
+Route::get('/admin/search_role',"AdminController@search_role");
 
 // 删除权限路由，这里应该用 ResF 风格API？？？
 Route::get('/admin/delete_permission',"AdminController@delete_permission");
