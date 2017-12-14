@@ -8,6 +8,7 @@
 		<script src="{{ asset('js/lib/jquery/dist/jquery.js') }}"></script>
 		<script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
 		<script src="{{ asset('AmazeUI/js/app.js')}}"></script>
+		<script src="{{ asset('/layer/layer.js')}}"></script>
 	</head>
 	<body>
 		<div class="am-cf admin-main">
@@ -18,16 +19,17 @@
 					<div class="am-g">
 						<div class="am-u-sm-12">
 							<form class="am-form am-form-horizontal" action="/admin/add_role_func" method="get">
+								<input type="hidden" name='role_id' value='{{$role->id}}'>
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">角色名称</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"   name='role_name' placeholder="请输入英文的角色名称">
+										<input type="text" class="am-input-sm"   name='role_name' placeholder="请输入英文的角色名称" value="{{$role->role_name}}">
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">角色描述</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"  name='role_describe'  placeholder="请输入角色的中文描述">
+										<input type="text" class="am-input-sm"  name='role_describe'  placeholder="请输入角色的中文描述" value="{{$role->role_describe}}">
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -35,8 +37,8 @@
 									<div class="am-u-sm-12 am-u-md-10">
 										
 										<select name="role_type" data-am-selected>
-											<option value="menu">菜单类</option>
-											<option value="operation" selected>操作类</option>
+											<option value="menu" {{$role->role_type=="menu"?"selected":""}}>菜单类</option>
+											<option value="operation" {{$role->role_type=="operation"?"selected":""}}>操作类</option>
 										</select>
 										
 									</div>
