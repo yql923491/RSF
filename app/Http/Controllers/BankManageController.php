@@ -20,4 +20,9 @@ class BankManageController extends Controller
     	return view('/bank/bank_info_manage')->with('title','银行信息管理');
     	
     }
+
+    public function add_bank(){
+    	return view('/bank/add_bank');
+    }
+
 }
