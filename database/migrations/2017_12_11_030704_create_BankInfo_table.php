@@ -16,9 +16,14 @@ class CreateBankInfoTable extends Migration
         Schema::create('BankInfo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('bank_name');
-            $table->string('subbranch_name');
+            $table->string('bank_type');
+            // $table->string('subbranch_name');
+            $table->integer('parent_bank_id');
             $table->integer('bank_level');
             $table->string('city_id');
+            $table->string('bank_arrd');
+            $table->string('contacts');
+            $table->string('contact_phone');
             $table->timestamps();
         });
     }

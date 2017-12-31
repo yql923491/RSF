@@ -48,3 +48,4 @@ Route::get('/admin/search_role',"AdminController@search_role");
 Route::get('/admin/delete_permission',"AdminController@delete_permission");
 Route::get('/admin/enable_permission',"AdminController@enable_permission");
 Route::get('/bank/bank_info_manage',"BankManageController@bank_info_manage");
+Route::get('/bank/add_bank',"BankManageController@add_bank");
