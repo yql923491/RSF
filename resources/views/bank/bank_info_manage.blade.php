@@ -4,7 +4,7 @@
 
 <div class="admin-content">
   <div class="admin-content-body">
-    <form class="am-form" action='{{route("permission_indexss")}}'>
+    <form class="am-form" action=''>
       <div class="am-cf am-padding">
       </div>
       <div class="am-g">
@@ -18,7 +18,7 @@
         </div>
         <div class="am-u-sm-12 am-u-md-3">
           <div class="am-form-group">
-            <select data-am-selected="{btnSize: 'sm'}" name="permission_type">
+            <select data-am-selected="{btnSize: 'sm'}" name="bank_level">
               <option value=" ">全部</option>
               <option value="level1" >一级</option>
               <option value="level2" >二级</option>
@@ -52,10 +52,31 @@
             </thead>
             <tbody>
 
+				@foreach ($banks as $bank)
+	              <tr>
+	                <td><input type="checkbox" class="selected_bank_id" value="{{$bank->id }}" /></td>
+	                <td><input type="hidden" class="permission_id" value='{{$bank->id }}'  > {{ $bank->id }}</td>
+	                <td>{{$bank->bank_name}}</td>
+	                <td></td>
+	                <td > <input type="hidden" class='permission_status' value=''><span>}</span></td>
+	                <td class="am-hide-sm-only"></td>
+	                <td class="am-hide-sm-only"></td>
+	                <td>
+	                  <div class="am-btn-group am-btn-group-xs">
+	                    <button type="button" class="am-btn am-btn-primary am-radius single_edit"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+	                    <button type="button" class="am-btn   am-radius single_enabled"><span class="am-icon-copy"></span> 禁用</button>
+	                    <button type="button" class="am-btn am-btn-danger am-radius single_delete"><span class="am-icon-trash-o"></span> 删除</button>
+	                  </div>
+	                </td>
+	              </tr>
+	              @endforeach
 
             </tbody>
           </table>
-
+				<div class="am-cf">
+				<div class="am-fr">{!! $banks->links() !!}       </div>
+				</div>
+				<hr />
           <hr />
         </form>
       </div>
