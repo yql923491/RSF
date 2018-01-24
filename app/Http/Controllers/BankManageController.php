@@ -39,6 +39,7 @@ class BankManageController extends Controller
         $bankinfo->bank_level=$request->bank_level;
         $bankinfo->bank_addr1=$request->bank_addr1;
         $bankinfo->bank_addr2=$request->bank_addr2;
+        $bankinfo->bank_logo=$request->bank_logo;
         $bankinfo->contacts=$request->contacts;
         $bankinfo->contact_phone=$request->contact_phone;
         $bankinfo->parent_bank_id=$request->parent_bank_id;
