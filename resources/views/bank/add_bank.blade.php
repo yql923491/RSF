@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="{{asset('AmazeUI/css/admin.css')}}">
 		<link rel="stylesheet" href="{{asset('AmazeUI/css/amazeui.address.min.css')}}"/>
 		<link rel="stylesheet" href="{{asset('amazeuiUpload/dist/amazeui.upload.css')}}"/>
+		<link rel="stylesheet" type="text/css" href="{{asset('uploadify/uploadify.css')}}" />
 		<script src="{{ asset('AmazeUI/js/jquery.min.js') }}"></script>
 		<script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
 		<script src="{{ asset('AmazeUI/js/iscroll.min.js')}}"></script>
@@ -18,9 +19,11 @@
 		<script src="{{ asset('photoClip-master/dist/hammer.min.js')}}"></script> 
 		<script src="{{ asset('photoClip-master/dist/photoClip.min.js')}}"></script>
 
-		<script src="{{ asset('amazeuiUpload/dist/amazeui.upload.js')}}"></script> 
+		<!-- <script src="{{ asset('amazeuiUpload/dist/amazeui.upload.js')}}"></script> 
 		<script src="{{ asset('amazeuiUpload/dist/amazeui.upload.template.js')}}"></script> 
-		<script src="{{ asset('amazeuiUpload/dist/amazeui.upload.event.js')}}"></script>
+		<script src="{{ asset('amazeuiUpload/dist/amazeui.upload.event.js')}}"></script> -->
+
+		<script type="text/javascript" src="{{ asset('uploadify/jquery.uploadify.min.js')}}"></script>
 
 		<style type="text/css">
 			#clip {
@@ -37,7 +40,7 @@
 					<div class="am-cf am-padding"></div>
 					<div class="am-g">
 						<div class="am-u-sm-12">
-							<form class="am-form am-form-horizontal" action="{{route('add_bank_func')}}" method="get">
+							<form class="am-form am-form-horizontal" action="{{route('add_bank_func')}}" method="get" id="upload">
 								<input type="hidden" name='bank_id' value=''>
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行名称</label>
@@ -81,6 +84,14 @@
 											<option value="4">农村信合</option>
 											<option value="5">外资银行</option>
 										</select>
+									</div>
+								</div>
+								
+								<div class="am-form-group">
+									<label class="am-u-sm-12 am-u-md-2 am-form-label">图片上传</label>
+									<div class="am-u-sm-12 am-u-md-10">
+										<input type="file" id="bank_logo">
+										<input type="hidden" name="bank_logo">
 									</div>
 								</div>
 
@@ -136,28 +147,52 @@
 	</div>
 	<script type="text/javascript" charset="utf-8" async defer>	
 		$(function() { 
+
+
+			$('#bank_logo').uploadify({
+		        'swf'      : "{{ asset('uploadify/uploadify.swf')}}",//
+		        'formData'     : {
+                            'timestamp' : '<?php echo time();?>',
+                            '_token'     : "{{csrf_token()}}"
+                        },
+		        'uploader' : "/bank/add_bank_logo",
+		        'method':'get',
+		        formData     : {'_token': '{{csrf_token()}}'}, // Laravel表单提交必需参数_token，防止CSRF
+	            onUploadSuccess : function(file, data, response) { // 上传成功回调函数
+	               console.log(data);
+	               $('input[name="bank_logo"]').val(data);
+
+	            },
+	            onUploadError: function(file, errorCode, errorMsg, errorString) { // 上传失败回调函数
+	                // $('#picshow').attr('src', '').hide();
+	                // $('#file_upload).val('');
+	                alert('上传失败，请重试！');
+	            }
+
+		        // Put your options here
+		    });
 			// 地址选择
 			$('#address').address();  
 
 			
-			var upload=$('#event').AmazeuiUpload({
-				url : 'pic_uploader'
-			});
-			// var upload=$('#event').AmazeuiUpload({ 
-			// 	url : 'http://localhost/demo.json', 
-			// 	downloadUrl :'', 
-			// 	maxFiles: 50, 	// 单次上传的数量 
-			// 	maxFileSize: 10, // 单个文件允许的大小 (M) 
-			// 	multiThreading: false, // true为同时上传false为队列上传 
-			// 	useDefTemplate: true, //是否使用表格模式 
-			// 	dropType: false, //是否允许拖拽 
-			// 	pasteType: false //是否允许粘贴 
-			// }); 
-			// upload.init(); //对象初始化 
-			// upload.destory(); //对象销毁 
-			// upload.setResult(); //置入已上传的对象 
-			var res= upload.selectResult(); //获取当前已经完成上传的对象
-			console.log(res);
+			// var upload=$('#event').AmazeuiUpload({
+			// 	url : 'pic_uploader'
+			// });
+			// // var upload=$('#event').AmazeuiUpload({ 
+			// // 	url : 'http://localhost/demo.json', 
+			// // 	downloadUrl :'', 
+			// // 	maxFiles: 50, 	// 单次上传的数量 
+			// // 	maxFileSize: 10, // 单个文件允许的大小 (M) 
+			// // 	multiThreading: false, // true为同时上传false为队列上传 
+			// // 	useDefTemplate: true, //是否使用表格模式 
+			// // 	dropType: false, //是否允许拖拽 
+			// // 	pasteType: false //是否允许粘贴 
+			// // }); 
+			// // upload.init(); //对象初始化 
+			// // upload.destory(); //对象销毁 
+			// // upload.setResult(); //置入已上传的对象 
+			// var res= upload.selectResult(); //获取当前已经完成上传的对象
+			// console.log(res);
 
 		});
 
@@ -175,15 +210,16 @@
 
 		$('form').submit(function(){
 
+
 			$.ajax({ 
 				url: $(this).attr('action'), 
 				type:'get',
 				data:$(this).serializeArray(),
 				dataType:'json',
 				success: function(data){
-					console.log(data);
+					// console.log(data);
 					// 治理要关闭当前弹窗同时刷新父窗口
-					console.log(data['insert_res'])
+					// console.log(data['insert_res'])
 					if(data['insert_res']){
 						window.parent.location.reload();
 					}else{
@@ -194,6 +230,8 @@
 			});
 			return false;
 		})
+
+
 	</script>
 </body>
 </html>
