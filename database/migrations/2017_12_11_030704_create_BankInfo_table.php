@@ -17,11 +17,11 @@ class CreateBankInfoTable extends Migration
             $table->increments('id');
             $table->string('bank_name');
             $table->string('bank_type');
-            // $table->string('subbranch_name');
             $table->integer('parent_bank_id');
             $table->integer('bank_level');
-            $table->string('city_id');
-            $table->string('bank_arrd');
+            $table->string('bank_addr1');
+            $table->string('bank_addr2');
+            $table->string('bank_logo')->nullable();
             $table->string('contacts');
             $table->string('contact_phone');
             $table->timestamps();
