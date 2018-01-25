@@ -63,10 +63,8 @@ class BankManageController extends Controller
 
     //图片上传测试
     public function add_bank_logo(Request $request){
-        echo 1;
-        // dd($request);
-        // die;
         // $file = $request->Filedata; // 不同环境可能获取方式有点不同，可以下打印观察一下 dd(Input());
+        dd(Input());
         // if($file->isValid())
         // {
         //     // 上传目录。 public目录下 uploads/thumb 文件夹
