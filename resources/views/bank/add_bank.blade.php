@@ -156,7 +156,7 @@
                             '_token'     : "{{csrf_token()}}"
                         },
 		        'uploader' : "/bank/add_bank_logo",
-		        'method':'get',
+		        'method':'POST',
 		        formData     : {'_token': '{{csrf_token()}}'}, // Laravel表单提交必需参数_token，防止CSRF
 	            onUploadSuccess : function(file, data, response) { // 上传成功回调函数
 	               console.log(data);
