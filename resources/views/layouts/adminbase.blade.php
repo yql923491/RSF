@@ -93,7 +93,7 @@
                             </a>
                         </li>
                         <li class="am-panel">
-                            <a href="admin-404.html">
+                            <a href="/bank/bank_cards_manage">
                                 <i class="am-list-ico am-icon-bug am-margin-left-sm"></i> 卡管理 </i>
                             </a>
                         </li>
