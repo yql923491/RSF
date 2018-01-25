@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'bank/pic_uploader',
+        'bank/add_bank_logo',
     ];
 }

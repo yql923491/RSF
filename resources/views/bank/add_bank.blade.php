@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>增加银行</title>
 		<link href="{{ asset('AmazeUI/css/amazeui.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{asset('AmazeUI/css/admin.css')}}">
