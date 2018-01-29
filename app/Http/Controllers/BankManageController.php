@@ -63,18 +63,17 @@ class BankManageController extends Controller
 
     //图片上传测试
     public function add_bank_logo(Request $request){
-        // $file = $request->Filedata; // 不同环境可能获取方式有点不同，可以下打印观察一下 dd(Input());
-        dd(Input());
-        // if($file->isValid())
-        // {
-        //     // 上传目录。 public目录下 uploads/thumb 文件夹
-        //     $dir = 'uploads/thumb/';
-        //     // 文件名。格式：时间戳 + 6位随机数 + 后缀名
-        //     $filename = time() . mt_rand(100000, 999999) . '.' . $file ->getClientOriginalExtension();
-        //     $file->move($dir, $filename);
-        //     $path = $dir . $filename;
-        //     return $path;
-        // }
+        $file = $request->Filedata; // 不同环境可能获取方式有点不同，可以下打印观察一下 dd(Input());
+        if($file->isValid())
+        {
+            // 上传目录。 public目录下 uploads/thumb 文件夹
+            $dir = 'uploads/thumb/';
+            // 文件名。格式：时间戳 + 6位随机数 + 后缀名
+            $filename = time() . mt_rand(100000, 999999) . '.' . $file ->getClientOriginalExtension();
+            $file->move($dir, $filename);
+            $path = $dir . $filename;
+            return $path;
+        }
     }
 
 
