@@ -53,6 +53,12 @@ Route::get('/admin/enable_permission',"AdminController@enable_permission");
 // Route::get('/bank/bank_info_manage',"BankManageController@bank_info_manage");
 Route::get('/bank/bank_info_manage',"BankManageController@bank_info_manage");
 Route::get('/bank/add_bank',"BankManageController@add_bank");
+
+Route::get('/bank/bank_cards_manage',"BankManageController@bank_cards_manage");
+Route::get('/bank/addBankCard',"BankManageController@addOrEditBankCard");
+Route::get('/bank/addBankCardPage',"BankManageController@addBankCardPage");
+
 Route::get('/bank/add_bank_func','BankManageController@add_bank_func')->name('add_bank_func');
 Route::post('/bank/add_bank_logo','BankManageController@add_bank_logo')->name('add_bank_logo');
 // Route::post('/bank/pic_uploader','BankManageController@pic_uploader')->name('pic_uploader');
+
