@@ -2,10 +2,12 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>增加银行</title>
+		<title>增加银行卡</title>
 		<link href="{{ asset('AmazeUI/css/amazeui.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{asset('AmazeUI/css/admin.css')}}">
 		<link rel="stylesheet" href="{{asset('AmazeUI/css/amazeui.address.min.css')}}"/>
+		<link rel="stylesheet" href="{{asset('amazeuiUpload/dist/amazeui.upload.css')}}"/>
+		<link rel="stylesheet" type="text/css" href="{{asset('uploadify/uploadify.css')}}" />
 		<script src="{{ asset('AmazeUI/js/jquery.min.js') }}"></script>
 		<script src="{{ asset('AmazeUI/js/amazeui.js') }}"></script>
 		<script src="{{ asset('AmazeUI/js/iscroll.min.js')}}"></script>
@@ -16,7 +18,7 @@
 		<script src="{{ asset('photoClip-master/dist/iscroll-zoom.min.js')}}"></script> 
 		<script src="{{ asset('photoClip-master/dist/hammer.min.js')}}"></script> 
 		<script src="{{ asset('photoClip-master/dist/photoClip.min.js')}}"></script>
-
+		<script type="text/javascript" src="{{ asset('uploadify/jquery.uploadify.min.js')}}"></script>
 		<style type="text/css">
 			#clip {
 				width: 100%;
@@ -37,7 +39,7 @@
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行卡名称</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"   name='cardName' placeholder="请输入银行卡名称" value="{{$bankCard->cardName}}">
+										<input type="text" class="am-input-sm"   name='card_name' placeholder="请输入银行卡名称" value="{{$bankCard->card_name}}">
 									</div>
 								</div>
 
@@ -46,31 +48,40 @@
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行卡类型</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<select name="cardType" data-am-selected>
-											<option value="1" {{$bankCard->cardType=="1"?"selected":""}}>借记卡</option>
-											<option value="2"{{$bankCard->cardType=="2"?"selected":""}}>信用卡</option>
-											<option value="3"{{$bankCard->cardType=="3"?"selected":""}}>社保卡</option>
-											<option value="4"{{$bankCard->cardType=="4"?"selected":""}}>其它</option>
+										<select name="card_type" data-am-selected>
+											<option value="1" {{$bankCard->card_type=="1"?"selected":""}}>借记卡</option>
+											<option value="2"{{$bankCard->card_type=="2"?"selected":""}}>信用卡</option>
+											<option value="3"{{$bankCard->card_type=="3"?"selected":""}}>社保卡</option>
+											<option value="4"{{$bankCard->card_type=="4"?"selected":""}}>其它</option>
 										</select>
 									</div>
 								</div>
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">发行银行</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<select name="cardBank" data-am-selected>
-											<option value="1"{{$bankCard->cardBank=="1"?"selected":""}}>国有银行</option>
-											<option value="2"{{$bankCard->cardBank=="2"?"selected":""}}>农商行</option>
-											<option value="3"{{$bankCard->cardBank=="3"?"selected":""}}>民营银行</option>
-											<option value="4"{{$bankCard->cardBank=="4"?"selected":""}}>农村信合</option>
-											<option value="5"{{$bankCard->cardBank=="5"?"selected":""}}>外资银行</option>
+										<select name="card_bank" data-am-selected>
+											@foreach ($banks as $bank)
+											<option value="{{$bank->id}}">{{$bank->bank_name}}</option>
+											@endforeach
+											<!-- <option value="1"{{$bankCard->card_bank=="1"?"selected":""}}>国有银行</option>
+											<option value="2"{{$bankCard->card_bank=="2"?"selected":""}}>农商行</option>
+											<option value="3"{{$bankCard->card_bank=="3"?"selected":""}}>民营银行</option>
+											<option value="4"{{$bankCard->card_bank=="4"?"selected":""}}>农村信合</option>
+											<option value="5"{{$bankCard->card_bank=="5"?"selected":""}}>外资银行</option> -->
 										</select>
 									</div>
 								</div>
-								
+								<div class="am-form-group">
+									<label class="am-u-sm-12 am-u-md-2 am-form-label">图片上传</label>
+									<div class="am-u-sm-12 am-u-md-10">
+										<input type="file" id="card_logo">
+										<input type="hidden" name="card_logo">
+									</div>
+								</div>
 								<div class="am-form-group">
 									<label for="user-weibo" class="am-u-sm-12 am-u-md-2 am-form-label">银行卡详细信息</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"  name='cardInfo'  value="{{$bankCard->cardInfo}}" placeholder="请填写银行卡详细信息">
+										<input type="text" class="am-input-sm"  name='card_info'  value="{{$bankCard->card_info}}" placeholder="请填写银行卡详细信息">
 									</div>
 								</div>
 								
@@ -93,7 +104,55 @@
 		<!-- content end -->
 	</div>
 	<script type="text/javascript" charset="utf-8" async defer>	
-		
+		$(function() { 
+
+
+			$('#card_logo').uploadify({
+		        'swf'      : "{{ asset('uploadify/uploadify.swf')}}",//
+		        'formData'     : {
+                            'timestamp' : '<?php echo time();?>',
+                            '_token'     : "{{csrf_token()}}"
+                        },
+		        'uploader' : "/bank/add_card_logo",
+		        // 'method':'POST',
+		        // formData     : {'_token': '{{csrf_token()}}'}, // Laravel表单提交必需参数_token，防止CSRF
+	            onUploadSuccess : function(file, data, response) { // 上传成功回调函数
+	               console.log(data);
+	               $('input[name="card_logo"]').val(data);
+
+	            },
+	            onUploadError: function(file, errorCode, errorMsg, errorString) { // 上传失败回调函数
+	                // $('#picshow').attr('src', '').hide();
+	                // $('#file_upload).val('');
+	                alert('上传失败，请重试！');
+	            }
+
+		        // Put your options here
+		    });
+			// 地址选择
+			$('#address').address();  
+
+			
+			// var upload=$('#event').AmazeuiUpload({
+			// 	url : 'pic_uploader'
+			// });
+			// // var upload=$('#event').AmazeuiUpload({ 
+			// // 	url : 'http://localhost/demo.json', 
+			// // 	downloadUrl :'', 
+			// // 	maxFiles: 50, 	// 单次上传的数量 
+			// // 	maxFileSize: 10, // 单个文件允许的大小 (M) 
+			// // 	multiThreading: false, // true为同时上传false为队列上传 
+			// // 	useDefTemplate: true, //是否使用表格模式 
+			// // 	dropType: false, //是否允许拖拽 
+			// // 	pasteType: false //是否允许粘贴 
+			// // }); 
+			// // upload.init(); //对象初始化 
+			// // upload.destory(); //对象销毁 
+			// // upload.setResult(); //置入已上传的对象 
+			// var res= upload.selectResult(); //获取当前已经完成上传的对象
+			// console.log(res);
+
+		});
 
 
 
