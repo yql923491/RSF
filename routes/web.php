@@ -60,5 +60,6 @@ Route::get('/bank/addBankCardPage',"BankManageController@addBankCardPage");
 
 Route::get('/bank/add_bank_func','BankManageController@add_bank_func')->name('add_bank_func');
 Route::post('/bank/add_bank_logo','BankManageController@add_bank_logo')->name('add_bank_logo');
+Route::get('/bank/delete_bank_info','BankManageController@delete_bank_info')->name('delete_bank_info');
 // Route::post('/bank/pic_uploader','BankManageController@pic_uploader')->name('pic_uploader');
 
