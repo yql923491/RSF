@@ -49,44 +49,50 @@ class BankManageController extends Controller
         }else{
             $bankCard=new bankCard;
         }
-        return view('/bank/addOrEditBankCardPage')->with('bankCard',$bankCard);
+        $banks=BankInfo::all();
+        return view('/bank/addOrEditBankCardPage')->with('bankCard',$bankCard)->with('banks',$banks);
     }
     public function bank_cards_manage(Request $request){//银行卡管理界面入口
-        $type=$request['cardType'];
+        $type=$request['card_type'];
         $search=$request['search'];
-        $res=BankCard::where('cardName','like','%'.$search.'%')->where('cardType','like','%'.$type.'%')->paginate(3);
-        return view('/bank/bank_cards_manage')->with('bankCards',$res)->with('search',$search)->with('title','银行卡信息管理')->with('cardType',$type);
+        $res=BankCard::where('card_name','like','%'.$search.'%')->paginate(3);
+        
+        return view('/bank/bank_cards_manage')->with('bankCards',$res)->with('search',$search)->with('title','银行卡信息管理');
     }
     public function addOrEditBankCard(Request $request){
         $bankCard=new bankCard;
         $bankCardId=$request['bankCardId'];
+        $bankId=$request['card_bank'];
+        $bank=BankInfo::find($bankId);
+        $bankName=$bank->bank_name;
         if (!empty($bankCardId)) {//id存在，则编辑
             $existBankCard=BankCard::find($bankCardId);
-            $existBankCard->cardName=$request['cardName'];
-            $existBankCard->cardType=$request['cardType'];
-            $existBankCard->cardInfo=$request['cardInfo'];
-            $existBankCard->cardBank=$request['cardBank'];
-            $bankCard->cardImgUrl="";
-            $bankCard->cardImgName="";
-            $bankCard->cardImgInfo="";
-            $bankCard->cardImgUrl="";
-            $bankCard->bankInfo_id="";
+            $existBankCard->card_name=$request['card_name'];
+            $existBankCard->card_type=$request['card_type'];
+            $existBankCard->card_info=$request['card_info'];
+            $existBankCard->card_bank=$bankName;
+            $existBankCard->card_imgurl=$request->card_logo;
+            $existBankCard->card_imgname="";
+            $existBankCard->card_imginfo="";
+            $existBankCard->bankinfo_id=$bankId;
             $ex=$existBankCard->save();
         }else{//id不存在，则添加
             $bankCard=new bankCard;
-            $bankCard->cardName=$request['cardName'];
-            $bankCard->cardType=$request['cardType'];
-            $bankCard->cardInfo=$request['cardInfo'];
-            $bankCard->cardBank=$request['cardBank'];
-            $bankCard->cardImgUrl="";
-            $bankCard->cardImgName="";
-            $bankCard->cardImgInfo="";
-            $bankCard->cardImgUrl="";
-            $bankCard->bankInfo_id="";
+            $bankCard->card_name=$request['card_name'];
+            $bankCard->card_type=$request['card_type'];
+            $bankCard->card_info=$request['card_info'];
+            $bankCard->card_bank=$bankName;
+            $bankCard->card_imgurl=$request->card_logo;
+            $bankCard->card_imgname="";
+            $bankCard->card_imginfo="";
+            $bankCard->bankinfo_id=$bankId;
             $ex=$bankCard->save();
         }
     }
-
+    public function delete_bankCard(Request $request){ //删除银行卡信息
+        $res=BankCard::destroy($request['bankCardId']); //返回删除的条数
+        return $res;
+    }
     // 银行添加功能
     public function add_bank_func(Request $request){
         $bankinfo= new BankInfo;
@@ -119,6 +125,19 @@ class BankManageController extends Controller
 
     //图片上传测试
     public function add_bank_logo(Request $request){
+        $file = $request->Filedata; // 不同环境可能获取方式有点不同，可以下打印观察一下 dd(Input());
+        if($file->isValid())
+        {
+            // 上传目录。 public目录下 uploads/thumb 文件夹
+            $dir = 'uploads/thumb/';
+            // 文件名。格式：时间戳 + 6位随机数 + 后缀名
+            $filename = time() . mt_rand(100000, 999999) . '.' . $file ->getClientOriginalExtension();
+            $file->move($dir, $filename);
+            $path = $dir . $filename;
+            return $path;
+        }
+    }
+    public function add_card_logo(Request $request){
         $file = $request->Filedata; // 不同环境可能获取方式有点不同，可以下打印观察一下 dd(Input());
         if($file->isValid())
         {

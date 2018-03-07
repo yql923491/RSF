@@ -13,7 +13,7 @@ class CreateBankInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('BankInfo', function (Blueprint $table) {
+        Schema::create('bank_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('bank_name');
             $table->string('bank_type');

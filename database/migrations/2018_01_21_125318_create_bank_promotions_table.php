@@ -15,16 +15,16 @@ class CreateBankPromotionsTable extends Migration
     {
         Schema::create('bank_promotions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('promName');//活动名
-            $table->string('promBank');//活动银行
-            $table->string('promStartTime');//活动开始时间
-            $table->string('promEndTime');//活动结束时间
-            $table->string('promInfo');//活动详细信息
-            $table->string('promUrl');//活动链接
-            $table->string('promImgUrl');//活动图片保存路径
-            $table->string('promImgName');//活动图片保存名
-            $table->string('promImgInfo');//活动图片信息
-            $table->string('bankInfo_id');//对应银行的外键
+            $table->string('prom_name');//活动名
+            $table->string('prom_bank');//活动银行
+            $table->string('prom_starttime');//活动开始时间
+            $table->string('prom_endtime');//活动结束时间
+            $table->string('prom_info');//活动详细信息
+            $table->string('prom_url');//活动链接
+            $table->string('prom_imgurl');//活动图片保存路径
+            $table->string('prom_imgname');//活动图片保存名
+            $table->string('prom_imginfo');//活动图片信息
+            $table->integer('bankcard_id');//对应银行卡的外键
             $table->timestamps();
         });
     }
