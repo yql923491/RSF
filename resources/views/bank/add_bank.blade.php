@@ -20,10 +20,6 @@
 		<script src="{{ asset('photoClip-master/dist/hammer.min.js')}}"></script> 
 		<script src="{{ asset('photoClip-master/dist/photoClip.min.js')}}"></script>
 
-		<!-- <script src="{{ asset('amazeuiUpload/dist/amazeui.upload.js')}}"></script> 
-		<script src="{{ asset('amazeuiUpload/dist/amazeui.upload.template.js')}}"></script> 
-		<script src="{{ asset('amazeuiUpload/dist/amazeui.upload.event.js')}}"></script> -->
-
 		<script type="text/javascript" src="{{ asset('uploadify/jquery.uploadify.min.js')}}"></script>
 
 		<style type="text/css">
@@ -46,30 +42,16 @@
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行名称</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"   name='bank_name' placeholder="请输入银行名称" value="">
+										<input type="text" class="am-input-sm"   name='bank_name' placeholder="请输入银行名称" value="{{empty($bank->bank_name)?'':$bank->bank_name}}">
 									</div>
 								</div>
 
-
-								<!-- <div class="am-form-group">
-									<label class="am-u-sm-12 am-u-md-2 am-form-label">LOGO</label>
-									<div class="am-u-sm-12 am-u-md-10">
-											<input type="file" name="bank_logo" id="bank_logo" />
-									</div>
-								</div> -->
-								
-								<!-- <div class="am-form-group">
-									<label for="" class="am-u-sm-12 am-u-md-2 am-form-label">LOGO</label>
-									<div class="am-u-sm-12 am-u-md-10">
-										<div id="event"></div>
-									</div>
-								</div> -->
 								<div class="am-form-group">
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行级别</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										<select name="bank_level" data-am-selected>
-											<option value="1" >总行</option>
-											<option value="2">省级分行</option>
+											<option value="1"  >总行</option>
+											<option value="2"  selected="true">省级分行</option>
 											<option value="3">市级分行</option>
 											<option value="4">县级分行</option>
 										</select>
@@ -79,11 +61,11 @@
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行类型</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										<select name="bank_type" data-am-selected>
-											<option value="1">国有银行</option>
-											<option value="2">农商行</option>
-											<option value="3">民营银行</option>
-											<option value="4">农村信合</option>
-											<option value="5">外资银行</option>
+											<option value="1" > <!-- {{empty($bank)?'em':$bank->bank_type==1?'<':'>'}} --> 国有银行</option>
+											<option value="2" >农商行</option>
+											<option value="3" >民营银行</option>
+											<option value="4" >农村信合</option>
+											<option value="5" >外资银行</option>
 										</select>
 									</div>
 								</div>
@@ -92,7 +74,7 @@
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">图片上传</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										<input type="file" id="bank_logo">
-										<input type="hidden" name="bank_logo">
+										<input type="hidden" name="bank_logo" value="{{empty($bank->bank_logo)?'':$bank->bank_logo}}">
 									</div>
 								</div>
 
