@@ -65,3 +65,8 @@ Route::post('/bank/add_bank_logo','BankManageController@add_bank_logo')->name('a
 Route::post('/bank/add_card_logo','BankManageController@add_card_logo')->name('add_card_logo');
 // Route::post('/bank/pic_uploader','BankManageController@pic_uploader')->name('pic_uploader');
 
+Route::get('/bank/bank_promotions_manage',"BankManageController@bank_promotions_manage");//银行卡优惠活动跳转
+Route::get('/bank/addBankPromotionPage',"BankManageController@addBankPromotionPage");
+Route::post('/bank/add_prom_logo','BankManageController@add_prom_logo')->name('add_bank_logo');
+Route::get('/bank/addBankPromotion',"BankManageController@addBankPromotionFunc");
+Route::get('/bank/deleteBankPromotion',"BankManageController@deleteBankPromotion");
