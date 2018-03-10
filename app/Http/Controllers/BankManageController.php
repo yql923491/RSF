@@ -31,17 +31,15 @@ class BankManageController extends Controller
 
     // 银行添加页面
     public function add_bank(Request $request){
+        $banks=BankInfo::all();
         if($request->bank_id != null){
             $res=BankInfo::find($request['bank_id']);
-            return view('/bank/add_bank')->with('bank',$res);
+            return view('/bank/add_bank')->with('bank',$res)->with('banks',$banks);
         }else{
-            return view('/bank/add_bank');
+            return view('/bank/add_bank')->with('banks',$banks);
         }
-    	
-
-
-
     }
+    
     public function addBankCardPage(Request $request){//跳转到银行卡添加或编辑界面
         $bankCardId=$request['bankCardId'];
         if ($bankCardId!=null) {//根据是否传入卡id动态回显
@@ -153,7 +151,11 @@ class BankManageController extends Controller
 
 
     public function delete_bank_info(Request $request){
+        $bank_info=BankInfo::where('id',$request['bank_id'])->get();
+        $bank_logo_path=$bank_info[0]->bank_logo;
+        // unlink($bank_logo_path);
         $res=BankInfo::destroy($request['bank_id']); //返回删除的条数
+        unlink($bank_logo_path);
         return $res;
     }
 
