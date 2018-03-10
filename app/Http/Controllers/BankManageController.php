@@ -47,7 +47,7 @@ class BankManageController extends Controller
         }else{
             $bankCard=new bankCard;
         }
-        $banks=BankInfo::all();
+        $banks=BankInfo::all();//为所属银行下拉框提供数据
         return view('/bank/addOrEditBankCardPage')->with('bankCard',$bankCard)->with('banks',$banks);
     }
     public function bank_cards_manage(Request $request){//银行卡管理界面入口
@@ -149,6 +149,85 @@ class BankManageController extends Controller
         }
     }
 
+
+
+    public function bank_promotions_manage(Request $request){//银行卡活动管理界面入口
+        $search=$request['search'];
+        $res=BankPromotion::where('prom_name','like','%'.$search.'%')->paginate(3);
+        
+        return view('/bank/bank_promotions_manage')->with('bankPromotions',$res)->with('search',$search)->with('title','银行卡活动信息管理');
+    }
+    public function addBankPromotionPage(Request $request){//跳转到银行活动添加或编辑界面
+        $bankPromotionId=$request['bankPromotionId'];
+        if ($bankPromotionId!=null) {//根据是否传入卡id动态回显
+            $bankPromotion=BankPromotion::find($bankPromotionId);
+        }else{
+            $bankPromotion=new bankPromotion;
+        }
+        $bankInfos=BankInfo::all();//添加时设置所属银行信息
+        //$promChannels=PromChannel::all();  后期设置活动类型和活动频道
+        //$PromTypes=PromType::all();
+        return view('/bank/addOrEditBankPromotionPage')->with('bankPromotion',$bankPromotion)->with('banks',$bankInfos);
+    }
+
+    public function add_prom_logo(Request $request){
+        $file = $request->Filedata; // 不同环境可能获取方式有点不同，可以下打印观察一下 dd(Input());
+        if($file->isValid())
+        {
+            // 上传目录。 public目录下 uploads/thumb 文件夹
+            $dir = 'uploads/thumb/';
+            // 文件名。格式：时间戳 + 6位随机数 + 后缀名
+            $filename = time() . mt_rand(100000, 999999) . '.' . $file ->getClientOriginalExtension();
+            $file->move($dir, $filename);
+            $path = $dir . $filename;
+            return $path;
+        }
+    }
+    public function addBankPromotionFunc(Request $request){
+        
+        $bankPromotionId=$request['bankPromotionId'];
+        $bankId=$request['prom_bank'];
+        $promChannelId=$request['prom_channel'];
+        $promTypeId=$request['prom_type'];
+        $bank=BankInfo::find($bankId);
+        $bankName=$bank->bank_name;
+        // if (!empty($bankPromotionId)) {//id存在，则编辑
+        //     $existBankPromotion=BankPromotion::find($bankPromotionId);
+        //     $existBankPromotion->prom_name=$request['prom_name'];
+        //     $existBankPromotion->prom_type=$request['prom_type'];
+        //     $existBankPromotion->prom_info=$request['prom_info'];
+        //     $existBankPromotion->prom_bank=$bankName;
+        //     $existBankPromotion->Promotion_imgurl=$request->Promotion_logo;
+        //     $existBankPromotion->Promotion_imgname="";
+        //     $existBankPromotion->Promotion_imginfo="";
+        //     $existBankPromotion->bankinfo_id=$bankId;
+        //     $ex=$existBankPromotion->save();
+        // }else{//id不存在，则添加
+            $bankPromotion=new bankPromotion;
+            $bankPromotion->prom_name=$request['prom_name'];
+            $bankPromotion->prom_username="";
+            $bankPromotion->prom_channel=$request['prom_channel'];
+            $bankPromotion->prom_type=$request['prom_type'];
+            $bankPromotion->prom_starttime=$request['prom_starttime'];
+            $bankPromotion->prom_endtime=$request['prom_endtime'];
+            $bankPromotion->prom_info=$request['prom_info'];
+            $bankPromotion->prom_bank=$bankName;
+            $bankPromotion->prom_url=$request['prom_url'];
+            $bankPromotion->prom_imgurl=$request->prom_logo;
+            $bankPromotion->prom_imgname="";
+            $bankPromotion->prom_imginfo="";
+            $bankPromotion->user_id=1123;
+            $bankPromotion->bankinfo_id=$bankId;
+            $bankPromotion->promchannel_id=$promChannelId;
+            $bankPromotion->promtype_id=$promTypeId;
+
+            $ex=$bankPromotion->save();
+        // }
+    }
+    public function deleteBankPromotion(Request $request){ //删除银行卡信息
+        $res=BankPromotion::destroy($request['bankPromotionId']); //传入id数组，可以批量删除
+        return $res;
+    }
 
     public function delete_bank_info(Request $request){
         $bank_info=BankInfo::where('id',$request['bank_id'])->get();

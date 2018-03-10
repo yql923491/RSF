@@ -10,7 +10,5 @@ class BankCard extends Model
     public function bankInfo(){
     	return $this->belongsTo('App\BankInfo','bankinfo_id');
     }
-    public function bankPromotions(){
-    	return $this->hasmany('App\BankPromotion','bankcard_id');
-    }
+    
 }
