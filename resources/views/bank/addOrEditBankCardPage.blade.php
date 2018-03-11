@@ -19,6 +19,13 @@
 		<script src="{{ asset('photoClip-master/dist/hammer.min.js')}}"></script> 
 		<script src="{{ asset('photoClip-master/dist/photoClip.min.js')}}"></script>
 		<script type="text/javascript" src="{{ asset('uploadify/jquery.uploadify.min.js')}}"></script>
+		<!-- Ueditor的相关调用 -->
+	 	<link href="{{asset('Ueditor/themes/default/css/umeditor.css')}}" type="text/css" rel="stylesheet">
+	    <!-- <script type="text/javascript" src="third-party/jquery.min.js"></script> -->
+	    <script type="text/javascript" charset="utf-8" src="{{asset('Ueditor/umeditor.config.js')}}"></script>
+	    <script type="text/javascript" charset="utf-8" src="{{asset('Ueditor/umeditor.min.js')}}"></script>
+	    <script type="text/javascript" src="{{ asset('Ueditor/lang/zh-cn/zh-cn.js')}}"></script>
+		
 		<style type="text/css">
 			#clip {
 				width: 100%;
@@ -81,7 +88,10 @@
 								<div class="am-form-group">
 									<label for="user-weibo" class="am-u-sm-12 am-u-md-2 am-form-label">银行卡详细信息</label>
 									<div class="am-u-sm-12 am-u-md-10">
-										<input type="text" class="am-input-sm"  name='card_info'  value="{{$bankCard->card_info}}" placeholder="请填写银行卡详细信息">
+										<input type="hidden" name="card_info" value=''/>
+										<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+										    <p></p>
+										</script>
 									</div>
 								</div>
 								
@@ -90,6 +100,7 @@
 								<div class="am-form-group">
 									<div class="am-u-sm-12 am-u-md-10 am-u-md-push-2">
 										<button type="submit" class="am-btn am-btn-primary">保存</button>
+										<!-- <button class="btn" onclick="getContent()">获得内容</button>&nbsp; -->
 									</div>
 								</div>
 							</form>
@@ -104,7 +115,9 @@
 		<!-- content end -->
 	</div>
 	<script type="text/javascript" charset="utf-8" async defer>	
+
 		$(function() { 
+			var um = UM.getEditor('myEditor');
 
 
 			$('#card_logo').uploadify({
@@ -168,6 +181,7 @@
 		})
 
 		$('form').submit(function(){
+			$('input[name="card_info"]').attr('value',UM.getEditor('myEditor').getContent());
 			$.ajax({ 
 				url: $(this).attr('action'), 
 				type:'get',
@@ -179,6 +193,15 @@
 			});
 			return false;
 		})
+
+		// // 获取内容
+		// function getContent() {
+	 //        var arr = [];
+	 //        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+	 //        arr.push("内容为：");
+	 //        arr.push(UM.getEditor('myEditor').getContent());
+	 //        alert(arr.join("\n"));
+	 //    }
 	</script>
 </body>
 </html>

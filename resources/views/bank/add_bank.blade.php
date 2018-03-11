@@ -50,8 +50,8 @@
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行级别</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										<select name="bank_level" data-am-selected>
-											<option value="1"  >总行</option>
-											<option value="2"  selected="true">省级分行</option>
+											<option value="1"  selected="true">总行</option>
+											<option value="2"  >省级分行</option>
 											<option value="3">市级分行</option>
 											<option value="4">县级分行</option>
 										</select>
@@ -61,7 +61,7 @@
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">银行类型</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										<select name="bank_type" data-am-selected>
-											<option value="1" > <!-- {{empty($bank)?'em':$bank->bank_type==1?'<':'>'}} --> 国有银行</option>
+											<option value="1" >国有银行</option>
 											<option value="2" >农商行</option>
 											<option value="3" >民营银行</option>
 											<option value="4" >农村信合</option>
@@ -82,10 +82,10 @@
 									<label class="am-u-sm-12 am-u-md-2 am-form-label">上级银行</label>
 									<div class="am-u-sm-12 am-u-md-10">
 										<select name="parent_bank_id" data-am-selected>
-											<option value="1">中国农业银行</option>
-											<option value="2">中国工商银行</option>
-											<option value="3">招商银行</option>
-											<option value="4">农村信用合作社</option>
+											<option value="0">无</option>
+											@foreach ($banks as $bank)
+												<option value="{{$bank->id}}">{{$bank->bank_name}}</option>
+											@endforeach
 										</select>
 									</div>
 								</div>

@@ -49,7 +49,7 @@
                   <td>{{$bankCard->card_name}}</td>
                   <td>{{$bankCard->card_bank}}</td>
                   <td>{{$bankCard->card_type}}</td>
-                  <td class="am-hide-sm-only">{{$bankCard->card_info}}</td>
+                  <td class="am-hide-sm-only">{!! $bankCard->card_info !!}</td>
                   <td class="am-hide-sm-only">{{$bankCard->created_at}}</td>
                   <td>
                     <div class="am-btn-group am-btn-group-xs">
