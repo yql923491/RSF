@@ -71,3 +71,8 @@ Route::get('/bank/addBankPromotionPage',"BankManageController@addBankPromotionPa
 Route::post('/bank/add_prom_logo','BankManageController@add_prom_logo')->name('add_bank_logo');
 Route::get('/bank/addBankPromotion',"BankManageController@addBankPromotionFunc");
 Route::get('/bank/deleteBankPromotion',"BankManageController@deleteBankPromotion");
+
+
+
+//前台页面路由
+Route::get('/Index/home',"IndexController@Index");
